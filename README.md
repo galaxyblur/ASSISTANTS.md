@@ -51,9 +51,30 @@ People without an assistant work there with a plain agent. That's full participa
 3. Give the assistant an ID: `<name>+<your-handle>@<issuer>`, e.g. `ada+alice@github.com`.
 4. On each machine, install [`tools/assistants-visit`](tools/assistants-visit), list the home's local path in `~/.config/assistants/homes`, and run the tool from your harness's session-start hook. A session opened in any wallet space then wakes the assistant. Everywhere else it stays a plain agent.
 
+**Adding a space through your assistant.** Once you have a home, give your assistant this prompt from the home:
+
+```text
+Make <repo path or URL> one of your spaces.
+
+1. If it already has an ASSISTANTS.md, read it. If it allows assistants and
+   lists me as a member, add it to your wallet and stop. Its house rules win.
+2. Otherwise, take inventory of it before you change anything: agent guide,
+   commit conventions, hooks, remote visibility, third-party data, and who
+   else works there.
+3. Ask me at most 3 questions: members, whether assistants are allowed, and
+   carry-out.
+4. In that repo, add the front desk from the spec's templates/ASSISTANTS.md,
+   pinned to the latest version. Add the pointer line to its AGENTS.md,
+   creating the file if it's missing. Choose a visit record that fits the
+   repo, and commit there with the chain.
+5. At home, add the repo to your wallet with its role and log the adoption.
+```
+
+The prompt names neither the assistant nor the home, so it works unchanged for any assistant. Step 1 covers spaces you don't own: the space's front desk decides whether your assistant may enter, and the wallet only records that it can.
+
 ## Files
 
-- [SPEC.md](SPEC.md): the specification (v0.2.0, draft)
+- [SPEC.md](SPEC.md): the specification (v0.2.1, draft)
 - [FUTURE.md](FUTURE.md): open questions, limitations, ideas
 - [templates/](templates/): front desks, wallet, board message
 - [tools/](tools/): `assistants-visit`, which wakes an assistant in its wallet spaces
@@ -61,4 +82,4 @@ People without an assistant work there with a plain agent. That's full participa
 
 ## Status
 
-v0.2.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).
+v0.2.1 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).

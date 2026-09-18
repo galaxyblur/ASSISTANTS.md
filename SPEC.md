@@ -1,6 +1,6 @@
 # ASSISTANTS.md Specification
 
-> Version 0.2.0 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
+> Version 0.2.1 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are used as described in RFC 2119.
 
@@ -98,7 +98,7 @@ A visit record is one JSON line:
 The file opens with YAML frontmatter:
 
 ```yaml
-assistants-spec: 0.2.0
+assistants-spec: 0.2.1
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
 assistants: allowed        # allowed | none

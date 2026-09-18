@@ -2,6 +2,10 @@
 
 Follows [Semantic Versioning](https://semver.org/).
 
+## 0.2.1 (2026-09-18)
+
+README: a standard prompt for adding a space through your assistant. You give it from the home, and it covers spaces that already have a front desk. No normative changes.
+
 ## 0.2.0 (2026-09-18)
 
 Waking in a space (§11): an assistant whose session starts inside a space MUST wake from its home first, and where the home lives is the person's per-machine configuration. The arrival procedure (§7) now starts there. The wallet's `spaces` entries (`repo`, `role`) are named as the fields tools read (§10). New reference tool `tools/assistants-visit` for git spaces, run from a session-start hook.
