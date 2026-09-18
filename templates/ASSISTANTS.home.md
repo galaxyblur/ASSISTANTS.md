@@ -1,5 +1,5 @@
 ---
-assistants-spec: 0.1.1
+assistants-spec: 0.2.0
 members: [alice@github.com]
 issuers: [github.com]
 assistants: allowed        # the resident only
@@ -16,7 +16,7 @@ resident:
 
 # ASSISTANTS.md
 
-The home of ada+alice@github.com. How this space receives agents acting for its person. Work instructions live in AGENTS.md. Spec: [ASSISTANTS.md v0.1.1](https://github.com/galaxyblur/ASSISTANTS.md).
+The home of ada+alice@github.com. How this space receives agents acting for its person. Work instructions live in AGENTS.md. Spec: [ASSISTANTS.md v0.2.0](https://github.com/galaxyblur/ASSISTANTS.md).
 
 ## Arrival
 

@@ -1,6 +1,6 @@
 # ASSISTANTS.md Specification
 
-> Version 0.1.1 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
+> Version 0.2.0 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are used as described in RFC 2119.
 
@@ -98,7 +98,7 @@ A visit record is one JSON line:
 The file opens with YAML frontmatter:
 
 ```yaml
-assistants-spec: 0.1.1
+assistants-spec: 0.2.0
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
 assistants: allowed        # allowed | none
@@ -124,7 +124,7 @@ The body is human-readable and MUST include:
 - the arrival procedure
 - any house rules beyond the frontmatter
 
-**Arrival procedure.** Read `AGENTS.md`, then `ASSISTANTS.md`, then open board messages addressed to your principal or to `any`. Then begin the visit record.
+**Arrival procedure.** An assistant first wakes from its home (§11). Then read `AGENTS.md`, then `ASSISTANTS.md`, then open board messages addressed to your principal or to `any`. Then begin the visit record.
 
 ## 8. Carry rules
 
@@ -153,7 +153,7 @@ resident:
 ```
 
 - `self` is the assistant's persona and memory of working with its person. It is read on every wake.
-- `wallet` lists the assistant's ID, the spaces it may enter, and its standing permissions. It holds pointers only, never secrets. See `templates/wallet.md`.
+- `wallet` lists the assistant's ID, the spaces it may enter, and its standing permissions. It holds pointers only, never secrets. Its frontmatter lists `spaces` as `repo` and `role` entries, which tools read. See `templates/wallet.md`.
 - **Standing permissions** are any actions the assistant takes without being invoked each time, such as scheduled wakes or routine bookkeeping. They MUST be listed in the wallet so they are recorded and can be revoked.
 - A home SHOULD set `members` to its person alone, and `carry-out: none` for everyone else.
 
@@ -165,6 +165,8 @@ An agent session is mortal and MUST act like it:
 - Commit and push at logical boundaries. Anything uncommitted dies with the session.
 - Before ending, write into the home what the assistant should remember, and into the space what the space should keep, subject to the carry rules.
 - Record the visit (§6).
+
+**Waking in a space.** A session often starts inside a space, not in the home. An assistant acting there MUST wake from its home first: read its `self` and `wallet`, and confirm the wallet lists this space. Where the home is on a given machine is the person's configuration, never the space's. The space names no assistants. [`tools/assistants-visit`](tools/assistants-visit) does this for git spaces: it matches the current repo's `origin` against the wallets of the homes configured on that machine. It prints the wake lines, or prints nothing if no wallet lists the repo. Run it from the harness's session-start hook.
 
 ## 12. Signing
 

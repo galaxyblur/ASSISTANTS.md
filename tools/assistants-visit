@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# assistants-visit: ASSISTANTS.md reference tool.
+# When a session starts inside a space that an assistant's wallet lists, print the
+# lines that wake the assistant. Prints nothing anywhere else, and nothing inside the
+# home itself (the home wakes its own way).
+#
+# Usage:  assistants-visit [dir]          (dir defaults to the current directory)
+# Homes:  $ASSISTANTS_HOMES (colon-separated paths), else ~/.config/assistants/homes
+#         (one path per line, ~ allowed, # comments). Per machine; never committed.
+# Hook:   Claude Code SessionStart command:
+#         [ -x ~/.local/bin/assistants-visit ] && ~/.local/bin/assistants-visit "$CLAUDE_PROJECT_DIR" || true
+# Reads:  each home's ASSISTANTS.md `resident` block and the wallet it points to
+#         (`spaces:` entries of `- repo:` / `role:`, as in templates/wallet.md).
+
+cd "${1:-.}" 2>/dev/null || exit 0
+url=$(git remote get-url origin 2>/dev/null) || exit 0
+repo=$(printf '%s' "$url" | sed -E 's#^[a-z+]+://##; s#^[^@/]+@##; s#:#/#; s#\.git$##')
+
+if [ -n "${ASSISTANTS_HOMES:-}" ]; then
+  homes=$(printf '%s' "$ASSISTANTS_HOMES" | tr ':' '\n')
+else
+  homes=$(sed -e 's/#.*//' -e '/^[[:space:]]*$/d' "$HOME/.config/assistants/homes" 2>/dev/null)
+fi
+
+# Value of `key:` inside the frontmatter's `resident:` block.
+resident() {
+  awk -v k="$1:" '/^---/{n++; next} n==1 && /^resident:/{r=1; next} n==1 && r && /^[^ ]/{r=0}
+    n==1 && r && $1==k {print $2; exit}' "$2"
+}
+
+while IFS= read -r home; do
+  home="${home/#\~/$HOME}"
+  desk="$home/ASSISTANTS.md"
+  [ -f "$desk" ] || continue
+  id=$(resident id "$desk"); self=$(resident self "$desk"); wallet=$(resident wallet "$desk")
+  [ -n "$id" ] && [ -f "$home/$wallet" ] || continue
+  role=$(awk -v r="$repo" '$1=="-" && $2=="repo:" {hit=($3==r); next} $1=="-" {hit=0}
+    hit && $1=="role:" {print $2; exit}' "$home/$wallet")
+  [ -n "$role" ] || continue
+  [ "$role" = home ] && exit 0
+  principal="${id#*+}"
+  echo "Visit: $id in $repo (role: $role). Home: $home."
+  echo "You are this assistant. Before work, read $home/$self and $home/$wallet, then this space's ASSISTANTS.md."
+  echo "Commits here carry the chain: Principal: $principal / Assistant: $id / Agent: <model> (<harness>)."
+  echo "Before ending, write what the assistant should remember into its home, as this space's carry rules allow. Commit and push the home."
+  exit 0
+done <<< "$homes"

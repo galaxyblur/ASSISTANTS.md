@@ -49,14 +49,16 @@ People without an assistant work there with a plain agent. That's full participa
 1. Use [`templates/ASSISTANTS.home.md`](templates/ASSISTANTS.home.md) as the home's front desk.
 2. Add a [`wallet.md`](templates/wallet.md) and a self page.
 3. Give the assistant an ID: `<name>+<your-handle>@<issuer>`, e.g. `ada+alice@github.com`.
+4. On each machine, install [`tools/assistants-visit`](tools/assistants-visit), list the home's local path in `~/.config/assistants/homes`, and run the tool from your harness's session-start hook. A session opened in any wallet space then wakes the assistant. Everywhere else it stays a plain agent.
 
 ## Files
 
-- [SPEC.md](SPEC.md): the specification (v0.1.1, draft)
+- [SPEC.md](SPEC.md): the specification (v0.2.0, draft)
 - [FUTURE.md](FUTURE.md): open questions, limitations, ideas
 - [templates/](templates/): front desks, wallet, board message
+- [tools/](tools/): `assistants-visit`, which wakes an assistant in its wallet spaces
 - [CHANGELOG.md](CHANGELOG.md)
 
 ## Status
 
-v0.1.1 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).
+v0.2.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).
