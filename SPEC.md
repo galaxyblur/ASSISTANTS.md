@@ -98,7 +98,7 @@ A visit record is one JSON line:
 The file opens with YAML frontmatter:
 
 ```yaml
-assistants-spec: 0.1.0
+assistants-spec: 0.1.1
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
 assistants: allowed        # allowed | none
