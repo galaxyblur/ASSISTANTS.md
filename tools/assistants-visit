@@ -5,12 +5,18 @@
 # home itself (the home wakes its own way).
 #
 # Usage:  assistants-visit [dir]          (dir defaults to the current directory)
+#         assistants-visit --id [dir]     print the resident's ID when dir is its home or a
+#                                         wallet space; nothing elsewhere. For status lines
+#                                         and pane labels.
 # Homes:  $ASSISTANTS_HOMES (colon-separated paths), else ~/.config/assistants/homes
 #         (one path per line, ~ allowed, # comments). Per machine; never committed.
 # Hook:   Claude Code SessionStart command:
 #         [ -x ~/.local/bin/assistants-visit ] && ~/.local/bin/assistants-visit "$CLAUDE_PROJECT_DIR" || true
 # Reads:  each home's ASSISTANTS.md `resident` block and the wallet it points to
 #         (`spaces:` entries of `- repo:` / `role:`, as in templates/wallet.md).
+
+mode=wake
+[ "${1:-}" = --id ] && { mode=id; shift; }
 
 cd "${1:-.}" 2>/dev/null || exit 0
 url=$(git remote get-url origin 2>/dev/null) || exit 0
@@ -37,6 +43,7 @@ while IFS= read -r home; do
   role=$(awk -v r="$repo" '$1=="-" && $2=="repo:" {hit=($3==r); next} $1=="-" {hit=0}
     hit && $1=="role:" {print $2; exit}' "$home/$wallet")
   [ -n "$role" ] || continue
+  [ "$mode" = id ] && { echo "$id"; exit 0; }
   [ "$role" = home ] && exit 0
   principal="${id#*+}"
   echo "Visit: $id in $repo (role: $role). Home: $home."
