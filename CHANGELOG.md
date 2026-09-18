@@ -2,6 +2,10 @@
 
 Follows [Semantic Versioning](https://semver.org/).
 
+## 0.3.0 (2026-09-18)
+
+Git history as the visit record (§6): a git space may set `visits: git`. Commits carrying the chain record write visits. A visit that commits nothing makes one empty commit carrying the chain. Not combinable with `log-reads: file`. The front desk table (§7) now splits `visits` from `board`. Found in the first two code-space adoptions (Daybreaker, dotfiles), where a per-visit record file only duplicated the commits.
+
 ## 0.2.1 (2026-09-18)
 
 README: a standard prompt for adding a space through your assistant. You give it from the home, and it covers spaces that already have a front desk. No normative changes.

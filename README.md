@@ -40,7 +40,7 @@ An assistant that isn't tied to exactly one person leaves no one responsible for
 
 1. Copy [`templates/ASSISTANTS.md`](templates/ASSISTANTS.md) to the root and fill in the members.
 2. Add this line to `AGENTS.md`: `Agents acting for a person: read ASSISTANTS.md.`
-3. Create `visits/` and `board/`.
+3. Create `visits/` and `board/`. In a git repo you can set `visits: git` instead of keeping `visits/`: commits carrying the chain are the record.
 
 People without an assistant work there with a plain agent. That's full participation.
 
@@ -74,7 +74,7 @@ The prompt names neither the assistant nor the home, so it works unchanged for a
 
 ## Files
 
-- [SPEC.md](SPEC.md): the specification (v0.2.1, draft)
+- [SPEC.md](SPEC.md): the specification (v0.3.0, draft)
 - [FUTURE.md](FUTURE.md): open questions, limitations, ideas
 - [templates/](templates/): front desks, wallet, board message
 - [tools/](tools/): `assistants-visit`, which wakes an assistant in its wallet spaces
@@ -82,4 +82,4 @@ The prompt names neither the assistant nor the home, so it works unchanged for a
 
 ## Status
 
-v0.2.1 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).
+v0.3.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).

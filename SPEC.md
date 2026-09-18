@@ -1,6 +1,6 @@
 # ASSISTANTS.md Specification
 
-> Version 0.2.1 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
+> Version 0.3.0 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are used as described in RFC 2119.
 
@@ -86,6 +86,7 @@ A visit record is one JSON line:
 - A session SHOULD write its record before it ends. If it wrote nothing else, it SHOULD commit the record by itself.
 - A visitor without write access can't record in the space. It MUST record the visit in its own home, and the space learns about it only through its host's access logs, if there are any.
 - In a solo space whose only member is the principal, the space's existing event log MAY serve as the visit record.
+- **Git history as the record.** A git space MAY set `visits: git`. Every commit already carries the chain (§5), so a visit that commits is recorded by its commits and writes nothing else. A visit that would commit nothing records itself with one empty commit carrying the chain (`git commit --allow-empty`), subject per the space's commit conventions, e.g. `chore: visit`. `log-reads: file` needs a record file, so it can't be combined with `visits: git`.
 
 **Per-file reads** are logged only when the front desk requires it. The front desk states this before entry. A visitor that doesn't accept it MUST leave without reading.
 
@@ -98,7 +99,7 @@ A visit record is one JSON line:
 The file opens with YAML frontmatter:
 
 ```yaml
-assistants-spec: 0.2.1
+assistants-spec: 0.3.0
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
 assistants: allowed        # allowed | none
@@ -115,7 +116,8 @@ unattributed: read-only    # read-only | none
 | `issuers` | issuers this space trusts to vouch for persons |
 | `assistants` | `allowed`: members may act through their assistant. `none`: members use plain agents only |
 | `log-reads` | the visit record's level of detail |
-| `visits`, `board` | paths |
+| `visits` | a directory path, or `git` (§6) |
+| `board` | a directory path |
 | `carry-out` | `attributed`: an assistant may take knowledge home, citing this space. `none`: nothing leaves |
 | `unattributed` | what an action without a chain may do: `read-only` or nothing at all (`none`) |
 
