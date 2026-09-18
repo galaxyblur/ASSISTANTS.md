@@ -1,6 +1,6 @@
 # ASSISTANTS.md Specification
 
-> Version 0.1.0 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
+> Version 0.1.1 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are used as described in RFC 2119.
 
@@ -130,7 +130,8 @@ The body is human-readable and MUST include:
 
 - **Carry-in.** Anything from a visitor's home, or from another space, MUST be approved by the visitor's person before it is written into this space.
 - **Carry-out.** Set by the `carry-out` field. With `attributed`, an assistant MAY take knowledge home, and its home MUST cite the source space. With `none`, it MUST NOT.
-- `assistants: none` implies nothing is carried out. A plain agent has no home to carry anything to. Spaces holding a third party's data, such as an employer's, SHOULD use `assistants: none` unless that third party agrees otherwise.
+- `assistants: none` implies nothing is carried out. A plain agent has no home to carry anything to.
+- **Third-party data.** A space holding data that belongs to someone other than its members, such as client records or an employer's material, SHOULD set `carry-out: none`. The concern is retention, and `carry-out: none` prevents it: an assistant may work there but remembers the space only while it is inside it. `assistants: none` is for owners who refuse assistants entirely.
 
 ## 9. The board
 

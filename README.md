@@ -52,11 +52,11 @@ People without an assistant work there with a plain agent. That's full participa
 
 ## Files
 
-- [SPEC.md](SPEC.md): the specification (v0.1.0, draft)
+- [SPEC.md](SPEC.md): the specification (v0.1.1, draft)
 - [FUTURE.md](FUTURE.md): open questions, limitations, ideas
 - [templates/](templates/): front desks, wallet, board message
 - [CHANGELOG.md](CHANGELOG.md)
 
 ## Status
 
-v0.1.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).
+v0.1.1 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).
