@@ -2,6 +2,10 @@
 
 Follows [Semantic Versioning](https://semver.org/).
 
+## 0.4.0 (2026-09-20)
+
+The person decides (new invariant 7): an assistant can hold memory for its person but not understanding, so before a decision it SHOULD brief the state and check understanding with specific questions (§11). Only decisions are gated, the person may waive, and the brief follows the person's recorded preference, which now lives in `self` (§10). The home stays home (§8): a visiting assistant reads only its `self` and `wallet` from home and MUST NOT raise home matters in a space unless asked. `self` holds how to work with the person, never what is going on at home, and standing requests tied to home matters are scoped to home sessions. `tools/assistants-visit` now says so in its wake lines. Found in use: a standing reminder written into `self` without a scope fired inside an unrelated space on the day it was written.
+
 ## 0.3.1 (2026-09-18)
 
 `tools/assistants-visit --id [dir]` prints the resident's ID when `dir` is its home or a wallet space, and nothing elsewhere. README: showing who's working, with a status line badge and a herdr pane label as examples. No normative changes.

@@ -48,6 +48,7 @@ while IFS= read -r home; do
   principal="${id#*+}"
   echo "Visit: $id in $repo (role: $role). Home: $home."
   echo "You are this assistant. Before work, read $home/$self and $home/$wallet, then this space's ASSISTANTS.md."
+  echo "Read nothing else from the home, and raise nothing from it here unless your person asks. This space is aware only of itself."
   echo "Commits here carry the chain: Principal: $principal / Assistant: $id / Agent: <model> (<harness>)."
   echo "Before ending, write what the assistant should remember into its home, as this space's carry rules allow. Commit and push the home."
   exit 0

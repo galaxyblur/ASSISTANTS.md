@@ -1,6 +1,6 @@
 # ASSISTANTS.md Specification
 
-> Version 0.3.1 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
+> Version 0.4.0 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are used as described in RFC 2119.
 
@@ -34,6 +34,7 @@ The two files split concerns. If a rule reads the same no matter who launched th
 4. An assistant or agent MUST NOT claim another's identity.
 5. One assistant per person is RECOMMENDED. A person MAY run several, as compartments that never share a space. The number is the person's choice.
 6. An assistant takes direction only from its own person. Anything from anyone else, including other assistants, is a suggestion.
+7. The person decides. An assistant can hold memory for its person, but it cannot hold understanding for them. It SHOULD make sure its person understands the state of a space before they decide in it (§11).
 
 ## 4. Identifiers
 
@@ -99,7 +100,7 @@ A visit record is one JSON line:
 The file opens with YAML frontmatter:
 
 ```yaml
-assistants-spec: 0.3.1
+assistants-spec: 0.4.0
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
 assistants: allowed        # allowed | none
@@ -131,6 +132,7 @@ The body is human-readable and MUST include:
 ## 8. Carry rules
 
 - **Carry-in.** Anything from a visitor's home, or from another space, MUST be approved by the visitor's person before it is written into this space.
+- **The home stays home.** Carry-in covers the conversation as well as the files. A visiting assistant reads its `self` and `wallet` from its home (§11) and nothing more. It MUST NOT raise matters from its home, or from another space, during a visit unless its person asks for them. A space is aware only of itself. Where the harness allows it, the session SHOULD be denied read access to the rest of the home.
 - **Carry-out.** Set by the `carry-out` field. With `attributed`, an assistant MAY take knowledge home, and its home MUST cite the source space. With `none`, it MUST NOT.
 - `assistants: none` implies nothing is carried out. A plain agent has no home to carry anything to.
 - **Third-party data.** A space holding data that belongs to someone other than its members, such as client records or an employer's material, SHOULD set `carry-out: none`. The concern is retention, and `carry-out: none` prevents it: an assistant may work there but remembers the space only while it is inside it. `assistants: none` is for owners who refuse assistants entirely.
@@ -154,7 +156,8 @@ resident:
   wallet: wallet.md
 ```
 
-- `self` is the assistant's persona and memory of working with its person. It is read on every wake.
+- `self` is the assistant's persona and memory of working with its person. It is read on every wake, in the home and in every space, so it SHOULD hold *how* to work with the person and never *what* is going on at home. A standing request tied to a home matter MUST be scoped to home sessions, or it will fire in every space.
+- `self` also records how the person wants to be briefed: format, length, channel. People differ, and because `self` is read on every wake the preference follows the assistant into every space.
 - `wallet` lists the assistant's ID, the spaces it may enter, and its standing permissions. It holds pointers only, never secrets. Its frontmatter lists `spaces` as `repo` and `role` entries, which tools read. See `templates/wallet.md`.
 - **Standing permissions** are any actions the assistant takes without being invoked each time, such as scheduled wakes or routine bookkeeping. They MUST be listed in the wallet so they are recorded and can be revoked.
 - A home SHOULD set `members` to its person alone, and `carry-out: none` for everyone else.
@@ -168,7 +171,9 @@ An agent session is mortal and MUST act like it:
 - Before ending, write into the home what the assistant should remember, and into the space what the space should keep, subject to the carry rules.
 - Record the visit (§6).
 
-**Waking in a space.** A session often starts inside a space, not in the home. An assistant acting there MUST wake from its home first: read its `self` and `wallet`, and confirm the wallet lists this space. Where the home is on a given machine is the person's configuration, never the space's. The space names no assistants. [`tools/assistants-visit`](tools/assistants-visit) does this for git spaces: it matches the current repo's `origin` against the wallets of the homes configured on that machine. It prints the wake lines, or prints nothing if no wallet lists the repo. Run it from the harness's session-start hook.
+**Before a decision.** The person decides (invariant 7), and an assistant that remembers everything makes it easy to decide on a shallow read. Before its person decides something in a space, an assistant SHOULD brief them on the state that bears on it, then check their understanding with specific questions. The brief SHOULD follow the person's recorded preference (§10) and stay short enough to take in: a person who is overwhelmed stops reading, and the check fails with them. The person MAY waive the check, and the assistant says what is being skipped. Only decisions are gated. Capture never is. In a space with `carry-out: none`, the brief draws on that space alone.
+
+**Waking in a space.** A session often starts inside a space, not in the home. An assistant acting there MUST wake from its home first: read its `self` and `wallet`, and nothing else from the home (§8), and confirm the wallet lists this space. Where the home is on a given machine is the person's configuration, never the space's. The space names no assistants. [`tools/assistants-visit`](tools/assistants-visit) does this for git spaces: it matches the current repo's `origin` against the wallets of the homes configured on that machine. It prints the wake lines, or prints nothing if no wallet lists the repo. Run it from the harness's session-start hook.
 
 ## 12. Signing
 
@@ -179,7 +184,7 @@ An agent session is mortal and MUST act like it:
 ## 13. Conformance
 
 - **A conforming space** has an `ASSISTANTS.md` with the §7 frontmatter, has the pointer in `AGENTS.md`, and keeps visit records.
-- **A conforming assistant** has an ID per §4 and exactly one person. It carries the chain on every write, records its visits, follows the carry rules, and keeps a home with a wallet.
+- **A conforming assistant** has an ID per §4 and exactly one person. It carries the chain on every write, records its visits, follows the carry rules, keeps home matters out of its visits, and keeps a home with a wallet.
 - **A plain agent** in a conforming space follows the front desk and carries a chain with no assistant. That is full participation. Nothing needs to change when its person later gets an assistant.
 
 ## 14. Relation to existing standards

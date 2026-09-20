@@ -4,6 +4,8 @@ What v0.1 leaves open, what it can't do, and ideas for later versions.
 
 ## Open questions
 
+- **When the understanding check fires.** Before every decision, only after a gap away from the space, or a setting the person records in `self`? v0.4 leaves it to the person.
+- **Enforcing the home boundary.** v0.4 relies on instruction, plus deny rules on the harness's file tools where they exist. Shell access still reaches the home. Does a visiting session need a sandbox, or a home that serves only `self` and `wallet`?
 - **Organizations as principals.** Can a chain end at a company, which is a legal person but not a natural one? Current lean: no. Organizations own spaces, every agent acting "for the company" names the employee who launched it, and a company's work goes through its people.
 - **Resolvable IDs.** `ada+alice@github.com` has valid `acct:` syntax, but nothing resolves it. Options: WebFinger on a domain the person controls, a static file on GitHub Pages, or a registry. Should a person's handle be issuer-scoped (`@github.com`) or domain-scoped (`@alice.example`)?
 - **Assurance levels.** v0.1 accepts platform accounts (roughly NIST SP 800-63 IAL1). How should a space require more? Candidates: W3C Verifiable Credentials, the EU Digital Identity Wallet, government eID. The catch is that stronger assurance costs pseudonymity.
