@@ -8,48 +8,120 @@
 #         assistants-visit --id [dir]     print the resident's ID when dir is its home or a
 #                                         wallet space; nothing elsewhere. For status lines
 #                                         and pane labels.
+#         assistants-visit --pack [dir]   write the carried set (SPEC §8) for the space at dir,
+#                                         for machines that can't reach the home. Copy the
+#                                         directory it prints to the same path there.
 # Homes:  $ASSISTANTS_HOMES (colon-separated paths), else ~/.config/assistants/homes
 #         (one path per line, ~ allowed, # comments). Per machine; never committed.
+# Carry:  $ASSISTANTS_CARRY, else ~/.config/assistants/carry. Used only when no
+#         configured home exists on this machine.
 # Hook:   Claude Code SessionStart command:
 #         [ -x ~/.local/bin/assistants-visit ] && ~/.local/bin/assistants-visit "$CLAUDE_PROJECT_DIR" || true
-# Reads:  each home's ASSISTANTS.md `resident` block and the wallet it points to
-#         (`spaces:` entries of `- repo:` / `role:`, as in templates/wallet.md).
+# Reads:  each home's ASSISTANT_ID.md (`id`, `principal`) and ASSISTANT_WALLET.md
+#         (`spaces:` entries of `- repo:` / `role:`). A pre-0.5 home is read through
+#         the `resident` block of its ASSISTANTS.md.
 
 mode=wake
-[ "${1:-}" = --id ] && { mode=id; shift; }
+case "${1:-}" in --id) mode=id; shift;; --pack) mode=pack; shift;; esac
 
 cd "${1:-.}" 2>/dev/null || exit 0
 url=$(git remote get-url origin 2>/dev/null) || exit 0
 repo=$(printf '%s' "$url" | sed -E 's#^[a-z+]+://##; s#^[^@/]+@##; s#:#/#; s#\.git$##')
+slug=$(printf '%s' "$repo" | tr '/' '_')
 
 if [ -n "${ASSISTANTS_HOMES:-}" ]; then
   homes=$(printf '%s' "$ASSISTANTS_HOMES" | tr ':' '\n')
 else
   homes=$(sed -e 's/#.*//' -e '/^[[:space:]]*$/d' "$HOME/.config/assistants/homes" 2>/dev/null)
 fi
+carry="${ASSISTANTS_CARRY:-$HOME/.config/assistants/carry}"
 
-# Value of `key:` inside the frontmatter's `resident:` block.
+# Value of a top-level `key:` in a file's frontmatter.
+front() {
+  awk -v k="$1:" '/^---/{n++; next} n==1 && $1==k {print $2; exit}' "$2"
+}
+# Value of `key:` inside the frontmatter's `resident:` block (pre-0.5 homes).
 resident() {
   awk -v k="$1:" '/^---/{n++; next} n==1 && /^resident:/{r=1; next} n==1 && r && /^[^ ]/{r=0}
     n==1 && r && $1==k {print $2; exit}' "$2"
 }
+# Role of $repo in a wallet file.
+role_in() {
+  awk -v r="$repo" '$1=="-" && $2=="repo:" {hit=($3==r); next} $1=="-" {hit=0}
+    hit && $1=="role:" {print $2; exit}' "$1"
+}
+# The wallet cut down to this space: its one entry, and the standing permissions
+# whose scope is `all` or this repo.
+wallet_entry() {
+  awk -v r="$repo" '
+    function flush() { if (keep) printf "%s", buf; buf=""; keep=0 }
+    /^---/ { n++; if (n==2) { flush(); print "---"; exit } print; next }
+    n!=1 { next }
+    /^[^ ]/ { flush(); sec=$1; if (sec=="id:" || sec=="spaces:" || sec=="standing:") print; next }
+    $1=="-" { flush() }
+    { buf = buf $0 "\n" }
+    sec=="spaces:" && $1=="-" && $2=="repo:" && $3==r { keep=1 }
+    sec=="standing:" && $1=="scope:" && ($2=="all" || $2==r) { keep=1 }
+  ' "$1"
+}
 
+wake_lines() { # id principal role where self wallet
+  echo "Visit: $1 in $repo (role: $3). $4"
+  echo "You are this assistant. Before work, read $5 and $6, then this space's AGENTS.md and ASSISTANTS.md."
+  echo "Read nothing else from the home, and raise nothing from it here unless your person asks. This space is aware only of itself."
+  echo "Commits here carry the chain: Principal: $2 / Assistant: $1 / Agent: <model> (<harness>)."
+}
+
+found_home=
 while IFS= read -r home; do
   home="${home/#\~/$HOME}"
-  desk="$home/ASSISTANTS.md"
-  [ -f "$desk" ] || continue
-  id=$(resident id "$desk"); self=$(resident self "$desk"); wallet=$(resident wallet "$desk")
+  [ -d "$home" ] || continue
+  found_home=1
+  if [ -f "$home/ASSISTANT_ID.md" ]; then
+    id=$(front id "$home/ASSISTANT_ID.md"); principal=$(front principal "$home/ASSISTANT_ID.md")
+    idfile=ASSISTANT_ID.md; self=ASSISTANT_SELF.md; wallet=ASSISTANT_WALLET.md
+  elif [ -f "$home/ASSISTANTS.md" ]; then
+    desk="$home/ASSISTANTS.md"
+    id=$(resident id "$desk"); self=$(resident self "$desk"); wallet=$(resident wallet "$desk")
+    principal="${id#*+}"; idfile=
+  else
+    continue
+  fi
   [ -n "$id" ] && [ -f "$home/$wallet" ] || continue
-  role=$(awk -v r="$repo" '$1=="-" && $2=="repo:" {hit=($3==r); next} $1=="-" {hit=0}
-    hit && $1=="role:" {print $2; exit}' "$home/$wallet")
+  role=$(role_in "$home/$wallet")
   [ -n "$role" ] || continue
   [ "$mode" = id ] && { echo "$id"; exit 0; }
+  if [ "$mode" = pack ]; then
+    [ -n "$idfile" ] || { echo "assistants-visit: --pack needs a 0.5 home (ASSISTANT_ID.md)" >&2; exit 1; }
+    out="$carry/$id"
+    mkdir -p "$out/spaces" || exit 1
+    cp "$home/ASSISTANT_ID.md" "$out/"
+    [ -f "$home/ASSISTANT_SELF_PUBLIC.md" ] && cp "$home/ASSISTANT_SELF_PUBLIC.md" "$out/"
+    wallet_entry "$home/$wallet" > "$out/spaces/$slug.md"
+    date -u +%Y-%m-%dT%H:%M:%SZ > "$out/PACKED"
+    echo "$out"
+    exit 0
+  fi
   [ "$role" = home ] && exit 0
-  principal="${id#*+}"
-  echo "Visit: $id in $repo (role: $role). Home: $home."
-  echo "You are this assistant. Before work, read $home/$self and $home/$wallet, then this space's ASSISTANTS.md."
-  echo "Read nothing else from the home, and raise nothing from it here unless your person asks. This space is aware only of itself."
-  echo "Commits here carry the chain: Principal: $principal / Assistant: $id / Agent: <model> (<harness>)."
+  wake_lines "$id" "$principal" "$role" "Home: $home." \
+    "${idfile:+$home/$idfile, }$home/$self" "$home/$wallet"
   echo "Before ending, write what the assistant should remember into its home, as this space's carry rules allow. Commit and push the home."
   exit 0
 done <<< "$homes"
+
+# No configured home on this machine: wake from a carried set, if one covers this space.
+[ -z "$found_home" ] && [ "$mode" != pack ] || exit 0
+for set in "$carry"/*/; do
+  entry="${set}spaces/$slug.md"
+  [ -f "${set}ASSISTANT_ID.md" ] && [ -f "$entry" ] || continue
+  id=$(front id "${set}ASSISTANT_ID.md"); principal=$(front principal "${set}ASSISTANT_ID.md")
+  role=$(role_in "$entry")
+  [ -n "$id" ] && [ -n "$role" ] || continue
+  [ "$mode" = id ] && { echo "$id"; exit 0; }
+  pub=; [ -f "${set}ASSISTANT_SELF_PUBLIC.md" ] && pub=" and ${set}ASSISTANT_SELF_PUBLIC.md"
+  wake_lines "$id" "$principal" "$role" "Home unreachable; carried set packed $(cat "${set}PACKED" 2>/dev/null)." \
+    "${set}ASSISTANT_ID.md$pub" "$entry"
+  echo "The carried set is a read-only snapshot. What the assistant should remember goes home as a board message, with your person's approval."
+  exit 0
+done
+exit 0

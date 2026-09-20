@@ -2,6 +2,22 @@
 
 Follows [Semantic Versioning](https://semver.org/).
 
+## 0.5.0 (2026-09-20)
+
+**Scope.** `ASSISTANTS.md` is about the exchange of information; `AGENTS.md` remains the document about interaction (§1). The spec covers four boundaries: what comes into a space, what leaves it, what is recorded about who was there and for whom, and what passes between an assistant and its home. It no longer says what an assistant may do in a space or how. Cut or made non-normative on that test: §11's git cadence (pull, commit, push), and the knowledge-layer rule for sessions visiting from the home. `unattributed` is reworded as an information rule with the same behavior.
+
+**Owner** (new invariant 8, new `owner` field): every space has exactly one owner, a person, inside an organization too. A pre-0.5 front desk with one member: that member is the owner.
+
+**Idiocorpus and idiocortex** (§2, §10): a person's own knowledge space is an idiocorpus; with a resident assistant it is an idiocortex, and "home" is the role it plays. One assistant per home and one home per assistant (invariant 9). A space appears in at most one of a person's wallets (invariant 10).
+
+**Breaking: the home files.** A home is marked by three fixed files at its root, replacing the front desk's `resident` block: `ASSISTANT_ID.md` (small, safe to show), `ASSISTANT_WALLET.md`, `ASSISTANT_SELF.md`. ID and self are now separate. Optional `ASSISTANT_SELF_PUBLIC.md` is the person-approved extract of self that may be seen outside the home. `tools/assistants-visit` reads the new files and still reads a `resident` block when they are absent, until 0.6. To migrate: move the self and wallet pages to the root names, add `ASSISTANT_ID.md`, delete `resident`.
+
+**The carried set** (§8, §11): the home must be reachable, or the assistant brings a dated read-only snapshot: its ID, its public self, and the one wallet entry for the space being visited. Never the full self or the full wallet. `assistants-visit --pack` writes one. With neither home nor carried set, the session is a plain agent.
+
+**Policy is the space's:** `visits: none` and `board: none` are allowed. The assistant still records every visit, at home when the space keeps no record (§6). A space with no front desk is treated as `carry-out: none` with no board (§7). Board messages flow between spaces in both directions: the sender's person approves sending, and the receiving owner's policy decides acceptance (§8). §9 now uses RFC 2119 keywords.
+
+Wallet: standing permissions take a `scope` (`home`, `all`, or a repo), which also decides what travels in a carried entry; `principal` moves to the ID file. New templates for the ID, self and public self. README lists all ten rules (it had omitted 7).
+
 ## 0.4.1 (2026-09-20)
 
 A space receives through its board (§8, §9): to move something between a person's own spaces, the assistant writes a message to the receiving space's board, with approval and within the sender's `carry-out`. A session does not reach into another space to fetch, and the home is no exception beyond `self` and `wallet`. Follows from 0.4.0's closed home: a space that can't read the home still needs a way to be told things.
