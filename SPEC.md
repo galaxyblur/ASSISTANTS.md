@@ -175,6 +175,14 @@ An agent session is mortal and MUST act like it:
 
 **Waking in a space.** A session often starts inside a space, not in the home. An assistant acting there MUST wake from its home first: read its `self` and `wallet`, and nothing else from the home (§8), and confirm the wallet lists this space. Where the home is on a given machine is the person's configuration, never the space's. The space names no assistants. [`tools/assistants-visit`](tools/assistants-visit) does this for git spaces: it matches the current repo's `origin` against the wallets of the homes configured on that machine. It prints the wake lines, or prints nothing if no wallet lists the repo. Run it from the harness's session-start hook.
 
+**Visiting from the home.** The reverse also happens: a session starts in the home and walks into a space. The harness loaded the home's instructions, so the space's `AGENTS.md`, skills and hooks reach the agent only as text it chooses to read. Two things never mix. Identity travels with the assistant, and conventions belong to the space.
+
+- **Travels, always:** whom the assistant acts for, how it speaks with its person, the chain, leak checks, and the carry rules.
+- **Belongs to the space, always:** how work is done there. For anything written in the space, the space's conventions override the home's. The home's file formats, link styles and commit cadence do not apply.
+- A visit from a home session SHOULD stay inside the space's knowledge layer: its wiki, its board, or whatever its front desk names as such. Before the first write, the agent MUST read the space's `AGENTS.md` and `ASSISTANTS.md` in full. Partial reads and searches don't count.
+- Work that touches anything else, such as code, configuration, tests or releases, SHOULD be done by a session started in the space. That session loads the space's instructions natively and wakes the assistant as above. The home session hands over a brief.
+- If a space rule and a home rule conflict, the assistant MUST stop and ask its person. It never picks silently.
+
 ## 12. Signing
 
 - Commits SHOULD be signed with an SSH key registered to the principal's issuer account (for GitHub, published at `github.com/<handle>.keys`).
