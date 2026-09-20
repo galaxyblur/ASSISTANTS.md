@@ -14,7 +14,8 @@ What the spec leaves open, what it can't do, and ideas for later versions.
 - **Cross-space awareness.** Should an assistant, when it wakes at home, scan every wallet space's board and report counts? It's cheap for a few spaces and slow for many.
 - **Standing-permission format.** 0.5 adds `scope`. Still open: a revocation record, and whether `expires` should be enforced by tools.
 - **An owner who can't be reached.** Invariant 8 names one owner. What should a visitor do in a space whose owner has left or can't be found: treat it as `assistants: none`, or as having no front desk? Orphaned spaces are common in organizations.
-- **Older pins.** A visitor may know a newer spec than the front desk pins. 0.5 covers one case (no `owner`). Is there a general rule?
+- **Version negotiation.** 0.5 adds `min-spec`, per-field defaults for older front desks (UPGRADING.md), and "read an unknown field carefully" for newer ones. Still open: should the chain record the spec version an assistant followed, so a space's history shows it? Should a space be able to set a maximum?
+- **Upgrades across many spaces.** One instruction upgrades one space. Should a home be able to list which of its wallet spaces are behind, and offer the owner-only ones as board messages?
 - **Enforcing no bleed.** Invariant 10 keeps a space out of two of a person's wallets, but neither wallet can see the other. Who checks?
 - **Refreshing a carried set.** A carried set is a dated snapshot. How stale may it be before a session should refuse to wake from it?
 - **Non-git bindings.** Folder, drive, server, device and API spaces need concrete recording and chain formats. 0.5 lets such a space set `visits: none`, with the assistant recording at home, which is a floor and not a format.

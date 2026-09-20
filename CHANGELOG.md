@@ -16,6 +16,8 @@ Follows [Semantic Versioning](https://semver.org/).
 
 **Policy is the space's:** `visits: none` and `board: none` are allowed. The assistant still records every visit, at home when the space keeps no record (§6). A space with no front desk is treated as `carry-out: none` with no board (§7). Board messages flow between spaces in both directions: the sender's person approves sending, and the receiving owner's policy decides acceptance (§8). §9 now uses RFC 2119 keywords.
 
+**Versions and upgrading** (§7, new `UPGRADING.md`): a front desk may set `min-spec`; an assistant whose `ASSISTANT_ID.md` declares an older `assistants-spec` stays out and the session goes on as a plain agent. `assistants-visit` enforces it at the door. A visitor reads an older front desk's missing fields by stated defaults, and a newer one's unknown fields carefully. Only the owner changes a front desk. `UPGRADING.md` gives agent-followable steps between versions behind one instruction: *adopt the latest ASSISTANTS.md spec here.* New `EXAMPLES.md`: nine user stories.
+
 Wallet: standing permissions take a `scope` (`home`, `all`, or a repo), which also decides what travels in a carried entry; `principal` moves to the ID file. New templates for the ID, self and public self. README lists all ten rules (it had omitted 7).
 
 ## 0.4.1 (2026-09-20)

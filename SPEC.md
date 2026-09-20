@@ -124,6 +124,7 @@ owner: alice@github.com
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
 assistants: allowed        # allowed | none
+min-spec: 0.5.0            # optional. the oldest spec a visiting assistant may follow
 log-reads: visit           # visit | file
 visits: visits/            # a path | git | none
 board: board/              # a path | none
@@ -137,6 +138,7 @@ unattributed: read-only    # read-only | none
 | `members` | persons who may act here |
 | `issuers` | issuers this space trusts to vouch for persons |
 | `assistants` | `allowed`: members may act through their assistant. `none`: no visitor that remembers; members use plain agents only |
+| `min-spec` | optional. An assistant whose `ASSISTANT_ID.md` declares an older `assistants-spec` does not enter as an assistant (see *Versions*) |
 | `log-reads` | the visit record's level of detail |
 | `visits` | a directory path, `git`, or `none` (§6) |
 | `board` | a directory path, or `none` if the space receives no messages |
@@ -152,7 +154,13 @@ The body is human-readable and MUST include:
 
 **Arrival procedure.** An assistant first wakes from its home (§11). Then read `AGENTS.md`, then `ASSISTANTS.md`, then open board messages addressed to your principal or to `any`. Then begin the visit record.
 
-**Older pins.** A front desk pinned below 0.5 has no `owner`. If it lists one member, that member is the owner. If it lists several, the space has no declared owner and a visitor SHOULD say so to its person.
+**Versions.** Two version numbers meet at the door, and both are `assistants-spec` fields. The front desk's says which spec the space's policy is written in. The visitor's, in its `ASSISTANT_ID.md`, says which spec the assistant follows.
+
+- *The space restricts the visitor.* A front desk MAY set `min-spec`. An assistant whose declared version is lower MUST NOT enter as an assistant. The session MAY go on as a plain agent, which carries nothing away. It SHOULD tell its person why, and that upgrading the home would fix it. Versions compare as SemVer. A space has a reason to ask: a rule it relies on, such as the carried set or the closed home, exists only from some version on.
+- *The visitor meets an older front desk.* It follows the front desk as written. A field the front desk lacks takes the default in [UPGRADING.md](UPGRADING.md). One case matters today: a front desk below 0.5 has no `owner`. If it lists one member, that member is the owner. If it lists several, the space has no declared owner, and a visitor SHOULD say so to its person.
+- *The visitor meets a newer front desk.* It MUST treat a field it doesn't know as the more careful reading, and SHOULD tell its person that its home is behind.
+
+**Changing the front desk.** The front desk is the owner's policy, so only the owner changes it, or an agent acting for the owner. That includes upgrading its pin. Anyone else proposes a change through the board. [UPGRADING.md](UPGRADING.md) gives the steps from each version to the next, written so that an agent can follow them. The instruction is one line: *adopt the latest ASSISTANTS.md spec here.*
 
 **No front desk.** A space without an `ASSISTANTS.md` has stated no policy, so the most careful one applies. An assistant MAY work there only if its wallet lists the space. It MUST treat the space as `carry-out: none` with no board, and MUST record the visit at home.
 
@@ -199,7 +207,7 @@ A person's knowledge space is an idiocorpus. It becomes an idiocortex, and an as
 
 The names are fixed so that any agent, and any tool, can tell a home by looking. `ASSISTANT_ID.md` is the marker. A home MUST have all three. The assistant's name appears inside the ID file and never in a filename, so a home reads the same whoever lives there.
 
-**`ASSISTANT_ID.md`** is small and safe to show. It SHOULD hold nothing the person wouldn't put in a commit trailer.
+**`ASSISTANT_ID.md`** is small and safe to show. It SHOULD hold nothing the person wouldn't put in a commit trailer. Its `assistants-spec` is the version the assistant follows, which a space may test against its `min-spec` (§7).
 
 ```yaml
 assistants-spec: 0.5.0
@@ -270,8 +278,8 @@ A session started elsewhere also misses the space's skills and hooks. Which work
 
 ## 13. Conformance
 
-- **A conforming space** has an `ASSISTANTS.md` with the §7 frontmatter, including its one `owner`, and has the pointer in `AGENTS.md`.
-- **A conforming assistant** has an ID per §4, exactly one person, and exactly one home with the three §10 files. It carries the chain on every write, records every visit, follows the carry rules, and keeps home matters out of its visits.
+- **A conforming space** has an `ASSISTANTS.md` with the §7 frontmatter, including its one `owner` and the spec version it is pinned to, and has the pointer in `AGENTS.md`.
+- **A conforming assistant** has an ID per §4, exactly one person, and exactly one home with the three §10 files, the ID file declaring the spec version it follows. It stays out of spaces whose `min-spec` it doesn't meet. It carries the chain on every write, records every visit, follows the carry rules, and keeps home matters out of its visits.
 - **A plain agent** in a conforming space follows the front desk and carries a chain with no assistant. That is full participation. Nothing needs to change when its person later gets an assistant.
 
 ## 14. Relation to existing standards

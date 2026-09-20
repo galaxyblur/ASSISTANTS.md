@@ -4,6 +4,7 @@ owner: alice@github.com    # exactly one person
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
 assistants: allowed        # allowed | none
+# min-spec: 0.5.0          # optional: admit only assistants following this spec or newer
 log-reads: visit           # visit | file
 visits: visits/            # a path | git | none (SPEC §6)
 board: board/              # a path | none

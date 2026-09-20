@@ -15,6 +15,8 @@ It never says what work an assistant may do. That is whatever `AGENTS.md` lets a
 
 > Agents forget; assistants remember. This spec makes every assistant answer to one person, and lets every space decide what it may carry away.
 
+New here? Read the [examples](EXAMPLES.md) first.
+
 ## Agent vs assistant
 
 | | Agent | Assistant |
@@ -94,6 +96,10 @@ Make <repo path or URL> one of your spaces.
 
 The prompt names neither the assistant nor the home, so it works unchanged for any assistant. Step 1 covers spaces you don't own: the space's front desk decides whether your assistant may enter, and the wallet only records that it can.
 
+**Upgrading.** In any space you own, or in your home, tell your agent: *adopt the latest ASSISTANTS.md spec here.* [UPGRADING.md](UPGRADING.md) gives it the steps from each version to the next, the few questions it may ask, and the default for everything else. Only a space's owner changes its front desk; anyone else proposes through the board.
+
+**Requiring a version.** A space can set `min-spec: 0.5.0` in its front desk. An assistant that follows an older spec stays out, and its person's session goes on as a plain agent. `assistants: none` refuses every assistant.
+
 **Showing who's working.** `assistants-visit --id [dir]` prints the resident's ID when `dir` is its home or a wallet space, and nothing anywhere else. Anything that labels a session can use it. For example, a Claude Code status line badge (`ADA`):
 
 ```sh
@@ -113,6 +119,8 @@ Name the assistant and the agent together: the assistant persists, and the agent
 ## Files
 
 - [SPEC.md](SPEC.md): the specification (v0.5.0, draft)
+- [EXAMPLES.md](EXAMPLES.md): nine short stories of the spec in use. Start here
+- [UPGRADING.md](UPGRADING.md): moving a space or a home to the latest version, step by step
 - [FUTURE.md](FUTURE.md): open questions, limitations, ideas
 - [templates/](templates/): front desks, the home files (ID, wallet, self, public self), board message
 - [tools/](tools/): `assistants-visit`, which wakes an assistant in its wallet spaces, names it with `--id` for status lines and pane labels, and with `--pack` writes a carried set
