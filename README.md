@@ -90,7 +90,7 @@ Name the assistant and the agent together: the assistant persists, and the agent
 
 ## Files
 
-- [SPEC.md](SPEC.md): the specification (v0.4.0, draft)
+- [SPEC.md](SPEC.md): the specification (v0.4.1, draft)
 - [FUTURE.md](FUTURE.md): open questions, limitations, ideas
 - [templates/](templates/): front desks, wallet, board message
 - [tools/](tools/): `assistants-visit`, which wakes an assistant in its wallet spaces and, with `--id`, names it for status lines and pane labels
@@ -98,4 +98,4 @@ Name the assistant and the agent together: the assistant persists, and the agent
 
 ## Status
 
-v0.4.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).
+v0.4.1 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).

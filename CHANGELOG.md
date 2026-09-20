@@ -2,6 +2,10 @@
 
 Follows [Semantic Versioning](https://semver.org/).
 
+## 0.4.1 (2026-09-20)
+
+A space receives through its board (§8, §9): to move something between a person's own spaces, the assistant writes a message to the receiving space's board, with approval and within the sender's `carry-out`. A session does not reach into another space to fetch, and the home is no exception beyond `self` and `wallet`. Follows from 0.4.0's closed home: a space that can't read the home still needs a way to be told things.
+
 ## 0.4.0 (2026-09-20)
 
 The person decides (new invariant 7): an assistant can hold memory for its person but not understanding, so before a decision it SHOULD brief the state and check understanding with specific questions (§11). Only decisions are gated, the person may waive, and the brief follows the person's recorded preference, which now lives in `self` (§10). The home stays home (§8): a visiting assistant reads only its `self` and `wallet` from home and MUST NOT raise home matters in a space unless asked. `self` holds how to work with the person, never what is going on at home, and standing requests tied to home matters are scoped to home sessions. `tools/assistants-visit` now says so in its wake lines. Visiting from the home (§11): a home session that walks into a space keeps its identity and takes on the space's conventions, reads the space's `AGENTS.md` and `ASSISTANTS.md` in full before writing, stays in the space's knowledge layer, and hands anything else to a session started in the space; a conflict between home and space rules stops the work until the person rules. Found in use: a standing reminder written into `self` without a scope fired inside an unrelated space on the day it was written.

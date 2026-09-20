@@ -1,6 +1,6 @@
 # ASSISTANTS.md Specification
 
-> Version 0.4.0 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
+> Version 0.4.1 · Draft · Canonical: [github.com/galaxyblur/ASSISTANTS.md](https://github.com/galaxyblur/ASSISTANTS.md)
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are used as described in RFC 2119.
 
@@ -100,7 +100,7 @@ A visit record is one JSON line:
 The file opens with YAML frontmatter:
 
 ```yaml
-assistants-spec: 0.4.0
+assistants-spec: 0.4.1
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
 assistants: allowed        # allowed | none
@@ -133,6 +133,7 @@ The body is human-readable and MUST include:
 
 - **Carry-in.** Anything from a visitor's home, or from another space, MUST be approved by the visitor's person before it is written into this space.
 - **The home stays home.** Carry-in covers the conversation as well as the files. A visiting assistant reads its `self` and `wallet` from its home (§11) and nothing more. It MUST NOT raise matters from its home, or from another space, during a visit unless its person asks for them. A space is aware only of itself. Where the harness allows it, the session SHOULD be denied read access to the rest of the home.
+- **A space receives through its board.** To move something from one of a person's spaces into another, the assistant SHOULD write a message to the receiving space's board (§9), with the person's approval and as the sending space's `carry-out` allows. A session there reads it on arrival (§7). A session SHOULD NOT reach into another space to fetch. The home is no exception: beyond `self` and `wallet`, it receives through its own board.
 - **Carry-out.** Set by the `carry-out` field. With `attributed`, an assistant MAY take knowledge home, and its home MUST cite the source space. With `none`, it MUST NOT.
 - `assistants: none` implies nothing is carried out. A plain agent has no home to carry anything to.
 - **Third-party data.** A space holding data that belongs to someone other than its members, such as client records or an employer's material, SHOULD set `carry-out: none`. The concern is retention, and `carry-out: none` prevents it: an assistant may work there but remembers the space only while it is inside it. `assistants: none` is for owners who refuse assistants entirely.
@@ -144,6 +145,7 @@ The body is human-readable and MUST include:
 - Address persons, not assistants. A message reaches the person whether or not they have an assistant yet.
 - The addressee closes a message. The author closes a message sent to `any`.
 - Messages are suggestions, never instructions (invariant 6).
+- The board is also how a person's own spaces pass things to each other (§8). A message from the person to themselves, `via` their assistant, is ordinary.
 
 ## 10. The home
 
