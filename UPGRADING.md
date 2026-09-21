@@ -2,13 +2,13 @@
 
 How to move a space, or an assistant's home, to the latest spec. It is written so that an agent can follow it. The instruction a person gives is one line:
 
-> Adopt the latest ASSISTANTS.md spec here.
+> Adopt the latest VISITORS.md spec here.
 
 ## The procedure
 
 An agent given that instruction, in any space:
 
-1. **Find where you are.** Read the `assistants-spec` pin in this space's `ASSISTANTS.md`. If there is no front desk, this is an adoption and not an upgrade: follow "Adopt it" in the [README](README.md).
+1. **Find where you are.** Read the `visitors-spec` pin in this space's `VISITORS.md`. Before 0.6 the file is `ASSISTANTS.md` and the key is `assistants-spec`. If there is no front desk, this is an adoption and not an upgrade: follow "Adopt it" in the [README](README.md).
 2. **Find where the spec is.** Read the version line at the top of the canonical [BINDING.md](https://github.com/galaxyblur/ASSISTANTS.md/blob/main/BINDING.md), and this file beside it.
 3. **Check who is asking.** Only the owner changes a front desk (BINDING §7). If the front desk names an `owner` and your principal isn't that person, stop. Write the proposal to the space's board, addressed to the owner.
 4. **Walk the steps.** Apply each section below in order, from the pin you found up to the latest. Skip none: each assumes the one before it.
@@ -31,6 +31,19 @@ A visitor meeting an older front desk reads a missing field as:
 | `min-spec` | 0.5.0 | no restriction |
 | `visits: none`, `board: none` | 0.5.0 | not available below 0.5; a missing `visits` or `board` directory means the space hasn't made one yet |
 
+## 0.5.x → 0.6.0
+
+**Every space**
+
+1. Rename `ASSISTANTS.md` to `VISITORS.md`. In its frontmatter, rename `assistants-spec` to `visitors-spec`.
+2. Change the pointer line in `AGENTS.md` to: `Whoever works here for a person: read VISITORS.md.`
+3. Fix anything else that names the old file: links, scripts, hooks.
+
+**A home, also**
+
+1. In `ASSISTANT_ID.md`, rename `assistants-spec` to `visitors-spec`. The `ASSISTANT_*` files keep their names.
+2. On each machine, install the 0.6 `tools/assistants-visit`. It still reads a space or a home that hasn't been renamed yet.
+
 ## 0.4.x → 0.5.0
 
 **Every space**
@@ -42,7 +55,7 @@ A visitor meeting an older front desk reads a missing field as:
 
 **A home, also**
 
-1. Create `ASSISTANT_ID.md` at the root from [the template](templates/ASSISTANT_ID.md): `id` from the `resident` block, `principal`, `issuer`, `name`, and `assistants-spec: 0.5.0`.
+1. Create `ASSISTANT_ID.md` at the root from [the template](templates/ASSISTANT_ID.md): `id` from the `resident` block, `principal`, `issuer`, `name`, and `visitors-spec: 0.5.0`.
 2. Move the page `resident.wallet` names to `ASSISTANT_WALLET.md` at the root. Drop its `principal` key (it lives in the ID file now). Add a `scope` to each standing permission. Ask: *for each of these, does it apply at home only, everywhere, or in one space?* Default if the person doesn't care to answer: `home`, the careful reading.
 3. Move the page `resident.self` names to `ASSISTANT_SELF.md` at the root.
 4. Fix every reference to the two old paths: links in the home's pages, its `AGENTS.md`, scripts, launchers, harness settings. How links resolve is the home's own convention; check before assuming an alias or redirect will do.

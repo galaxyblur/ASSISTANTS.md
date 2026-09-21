@@ -1,4 +1,4 @@
-# ASSISTANTS.md
+# VISITORS.md
 
 > Version 0.6.0 · Draft, unreleased · A framework, not a protocol.
 > One way to enact it: [BINDING.md](BINDING.md) (git + markdown). In use: [EXAMPLES.md](EXAMPLES.md).

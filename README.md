@@ -1,37 +1,35 @@
-# ASSISTANTS.md
+# VISITORS.md
 
-A front desk and house rules for AI assistants acting on a person's behalf.
+Who is acting in a space, what may come in, and what may be written down somewhere else afterwards.
 
-`AGENTS.md` tells any AI agent how to work in a space: build steps, conventions. It assumes an anonymous tool that forgets everything when the session ends. That assumption is breaking. People now run assistants with memory, a name, and an existence beyond one session. These assistants move between spaces, carry knowledge with them, and act for someone.
+`AGENTS.md` tells any agent how to work in a space. It says nothing about who the agent is working for, or what happens to what it saw. That used to be fine. Now people work through tools that remember, and through assistants with a name and a memory that move between the places a person works.
 
-`ASSISTANTS.md` sits next to `AGENTS.md`. `AGENTS.md` stays the document about interaction: what an agent may do in a space, and how. `ASSISTANTS.md` is about the exchange of information, and nothing else:
+`VISITORS.md` sits next to `AGENTS.md` and answers four questions:
 
-- Who is acting here, and for whom? Who owns this space?
-- May a visitor that remembers come in?
-- What may it bring in, and what may it carry away?
+- Who is acting here, and who owns this space?
+- What may a visitor bring in?
+- What may be written down outside this space afterwards?
 - How do spaces leave word for each other?
 
-It never says what work an assistant may do. That is whatever `AGENTS.md` lets any agent do.
+It applies to whoever works in the space: a person by hand, an agent, an assistant. It never says what work may be done. That is `AGENTS.md`.
 
-> Agents forget; assistants remember. This spec makes every assistant answer to one person, and lets every space decide what it may carry away.
-
-New here? Read the [examples](EXAMPLES.md) first.
+New here? Read [SPEC.md](SPEC.md) (two minutes), then the [examples](EXAMPLES.md).
 
 ## Agent vs assistant
 
 | | Agent | Assistant |
 |---|---|---|
 | Lifespan | one session | persistent; dormant between sessions |
-| Memory | none | yes, kept in its person's home |
-| Belongs to | whoever launched it | exactly one person, by design |
+| Memory | whatever its harness keeps | its own, kept in its person's home |
+| Belongs to | whoever launched it | exactly one identity, by design |
 
-An assistant uses agents as its medium, the same way a person does.
+An assistant uses agents as its medium, the same way a person does. Its name is a label. The identity behind it carries the weight.
 
 ## The rules
 
 Eleven principles, a two-minute read: [SPEC.md](SPEC.md).
 
-An assistant that isn't tied to exactly one person leaves no one responsible for it. A space that isn't tied to exactly one person has the same problem. The rules make accountability part of the design, not a matter of discipline.
+A visitor that names no one leaves no one responsible for what it did. A space with no single owner has the same problem. The rules make accountability part of the design, not a matter of discipline.
 
 ## Idiocorpus, idiocortex, home
 
@@ -46,21 +44,21 @@ A home is marked by files at its root, with fixed names so any agent can tell by
 | `ASSISTANT_SELF.md` | its persona and its memory of working with its person | never |
 | `ASSISTANT_SELF_PUBLIC.md` | optional: the part of self that may be seen elsewhere | yes |
 
-`ls ASSISTANT*` shows everything this spec touches in a space.
+`ls ASSISTANT*` shows a home. `VISITORS.md` is the one file every space has.
 
 ## Adopt it
 
 **In a space** (a repo, a shared folder):
 
-1. Copy [`templates/ASSISTANTS.md`](templates/ASSISTANTS.md) to the root and fill in the owner and the members.
-2. Add this line to `AGENTS.md`: `Agents acting for a person: read ASSISTANTS.md.`
+1. Copy [`templates/VISITORS.md`](templates/VISITORS.md) to the root and fill in the owner and the members.
+2. Add this line to `AGENTS.md`: `Whoever works here for a person: read VISITORS.md.`
 3. Create `visits/` and `board/`. In a git repo you can set `visits: git` instead of keeping `visits/`: commits carrying the chain are the record. A space that wants neither sets `visits: none` or `board: none`; a visiting assistant then records its visit in its own home.
 
 People without an assistant work there with a plain agent. That's full participation.
 
 **For your assistant's home:**
 
-1. Use [`templates/ASSISTANTS.home.md`](templates/ASSISTANTS.home.md) as the home's front desk.
+1. Use [`templates/VISITORS.home.md`](templates/VISITORS.home.md) as the home's front desk.
 2. Give the assistant an ID: `<name>+<your-handle>@<issuer>`, e.g. `ada+alice@github.com`.
 3. At the root, add [`ASSISTANT_ID.md`](templates/ASSISTANT_ID.md), [`ASSISTANT_WALLET.md`](templates/ASSISTANT_WALLET.md) and [`ASSISTANT_SELF.md`](templates/ASSISTANT_SELF.md). Add [`ASSISTANT_SELF_PUBLIC.md`](templates/ASSISTANT_SELF_PUBLIC.md) if the assistant will work on machines that can't reach the home.
 4. On each machine, install [`tools/assistants-visit`](tools/assistants-visit), list the home's local path in `~/.config/assistants/homes`, and run the tool from your harness's session-start hook. A session opened in any wallet space then wakes the assistant. Everywhere else it stays a plain agent.
@@ -71,14 +69,14 @@ People without an assistant work there with a plain agent. That's full participa
 ```text
 Make <repo path or URL> one of your spaces.
 
-1. If it already has an ASSISTANTS.md, read it. If it allows assistants and
+1. If it already has an VISITORS.md, read it. If it allows assistants and
    lists me as a member, add it to your wallet and stop. Its house rules win.
 2. Otherwise, take inventory of it before you change anything: agent guide,
    commit conventions, hooks, remote visibility, third-party data, and who
    else works there.
 3. Ask me at most 3 questions: owner and members, whether assistants are
    allowed, and carry-out.
-4. In that repo, add the front desk from the spec's templates/ASSISTANTS.md,
+4. In that repo, add the front desk from the spec's templates/VISITORS.md,
    pinned to the latest version. Add the pointer line to its AGENTS.md,
    creating the file if it's missing. Choose a visit record that fits the
    repo, and commit there with the chain.
@@ -87,7 +85,7 @@ Make <repo path or URL> one of your spaces.
 
 The prompt names neither the assistant nor the home, so it works unchanged for any assistant. Step 1 covers spaces you don't own: the space's front desk decides whether your assistant may enter, and the wallet only records that it can.
 
-**Upgrading.** In any space you own, or in your home, tell your agent: *adopt the latest ASSISTANTS.md spec here.* [UPGRADING.md](UPGRADING.md) gives it the steps from each version to the next, the few questions it may ask, and the default for everything else. Only a space's owner changes its front desk; anyone else proposes through the board.
+**Upgrading.** In any space you own, or in your home, tell your agent: *adopt the latest VISITORS.md spec here.* [UPGRADING.md](UPGRADING.md) gives it the steps from each version to the next, the few questions it may ask, and the default for everything else. Only a space's owner changes its front desk; anyone else proposes through the board.
 
 **Requiring a version.** A space can set `min-spec: 0.5.0` in its front desk. An assistant that follows an older spec stays out, and its person's session goes on as a plain agent. `assistants: none` refuses every assistant.
 

@@ -1,5 +1,5 @@
 ---
-assistants-spec: 0.5.0
+visitors-spec: 0.5.0
 owner: alice@github.com
 members: [alice@github.com]
 issuers: [github.com]
@@ -11,9 +11,9 @@ carry-out: none
 unattributed: none
 ---
 
-# ASSISTANTS.md
+# VISITORS.md
 
-The home of ada+alice@github.com: alice's idiocortex. This file says what information may enter and leave, and what is recorded. Work instructions live in AGENTS.md. Spec: [ASSISTANTS.md v0.5.0](https://github.com/galaxyblur/ASSISTANTS.md).
+The home of ada+alice@github.com: alice's idiocortex. This file says what information may enter and leave, and what is recorded. Work instructions live in AGENTS.md. Spec: [VISITORS.md v0.5.0](https://github.com/galaxyblur/ASSISTANTS.md).
 
 The resident is named by the three files beside this one: `ASSISTANT_ID.md`, `ASSISTANT_SELF.md`, `ASSISTANT_WALLET.md`.
 

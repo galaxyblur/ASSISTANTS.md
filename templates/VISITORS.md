@@ -1,5 +1,5 @@
 ---
-assistants-spec: 0.5.0
+visitors-spec: 0.5.0
 owner: alice@github.com    # exactly one person
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
@@ -12,9 +12,9 @@ carry-out: attributed      # attributed | none (none for third-party data)
 unattributed: read-only    # read-only | none
 ---
 
-# ASSISTANTS.md
+# VISITORS.md
 
-What information may enter this space, what may leave it, and what is recorded about who was here and for whom. What an agent may do here, and how, is in AGENTS.md. Spec: [ASSISTANTS.md v0.5.0](https://github.com/galaxyblur/ASSISTANTS.md).
+What information may enter this space, what may leave it, and what is recorded about who was here and for whom. What an agent may do here, and how, is in AGENTS.md. Spec: [VISITORS.md v0.5.0](https://github.com/galaxyblur/ASSISTANTS.md).
 
 ## Arrival
 

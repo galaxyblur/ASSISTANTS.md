@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# assistants-visit: ASSISTANTS.md reference tool.
+# assistants-visit: VISITORS.md reference tool.
 # When a session starts inside a space that an assistant's wallet lists, print the
 # lines that wake the assistant. Prints nothing anywhere else, and nothing inside the
 # home itself (the home wakes its own way).
@@ -17,11 +17,11 @@
 #         configured home exists on this machine.
 # Hook:   Claude Code SessionStart command:
 #         [ -x ~/.local/bin/assistants-visit ] && ~/.local/bin/assistants-visit "$CLAUDE_PROJECT_DIR" || true
-# Door:   if the space's ASSISTANTS.md sets `min-spec` and the assistant's declared
-#         `assistants-spec` is older, prints why it stays out instead of waking it.
+# Door:   if the space's VISITORS.md sets `min-spec` and the assistant's declared
+#         `visitors-spec` is older, prints why it stays out instead of waking it.
 # Reads:  each home's ASSISTANT_ID.md (`id`, `principal`) and ASSISTANT_WALLET.md
-#         (`spaces:` entries of `- repo:` / `role:`). A pre-0.5 home is read through
-#         the `resident` block of its ASSISTANTS.md.
+#         (`spaces:` entries of `- repo:` / `role:`). A space or home not yet renamed
+#         (ASSISTANTS.md, `assistants-spec`) is still read.
 
 mode=wake
 case "${1:-}" in --id) mode=id; shift;; --pack) mode=pack; shift;; esac
@@ -42,10 +42,9 @@ carry="${ASSISTANTS_CARRY:-$HOME/.config/assistants/carry}"
 front() {
   awk -v k="$1:" '/^---/{n++; next} n==1 && $1==k {print $2; exit}' "$2"
 }
-# Value of `key:` inside the frontmatter's `resident:` block (pre-0.5 homes).
-resident() {
-  awk -v k="$1:" '/^---/{n++; next} n==1 && /^resident:/{r=1; next} n==1 && r && /^[^ ]/{r=0}
-    n==1 && r && $1==k {print $2; exit}' "$2"
+# The spec version a file declares, under the current key or the pre-0.6 one.
+spec_ver() {
+  local v; v=$(front visitors-spec "$1"); [ -n "$v" ] || v=$(front assistants-spec "$1"); echo "$v"
 }
 # Role of $repo in a wallet file.
 role_in() {
@@ -69,7 +68,7 @@ wallet_entry() {
 
 # The space's min-spec, if its front desk sets one. Empty when the assistant's version
 # ($1) meets it; otherwise the version required.
-space_desk="$PWD/ASSISTANTS.md"
+space_desk="$PWD/VISITORS.md"; [ -f "$space_desk" ] || space_desk="$PWD/ASSISTANTS.md"
 too_old() {
   local min; min=$(front min-spec "$space_desk" 2>/dev/null)
   [ -n "$min" ] || return 1
@@ -77,13 +76,13 @@ too_old() {
   echo "$min"
 }
 stay_out() { # id version min
-  echo "No assistant here: this space requires ASSISTANTS.md spec >= $3, and $1 follows ${2:-an undeclared version}."
-  echo "Work as a plain agent: carry the chain without an Assistant: line, and take nothing home. Tell your person that upgrading the home (\"adopt the latest ASSISTANTS.md spec here\") would fix this."
+  echo "No assistant here: this space requires VISITORS.md spec >= $3, and $1 follows ${2:-an undeclared version}."
+  echo "Work as a plain agent: carry the chain without an Assistant: line, and take nothing home. Tell your person that upgrading the home (\"adopt the latest VISITORS.md spec here\") would fix this."
 }
 
 wake_lines() { # id principal role where self wallet
   echo "Visit: $1 in $repo (role: $3). $4"
-  echo "You are this assistant. Before work, read $5 and $6, then this space's AGENTS.md and ASSISTANTS.md."
+  echo "You are this assistant. Before work, read $5 and $6, then this space's AGENTS.md and ${space_desk##*/}."
   echo "Read nothing else from the home, and raise nothing from it here unless your person asks. This space is aware only of itself."
   echo "Commits here carry the chain: Principal: $2 / Assistant: $1 / Agent: <model> (<harness>)."
 }
@@ -93,17 +92,10 @@ while IFS= read -r home; do
   home="${home/#\~/$HOME}"
   [ -d "$home" ] || continue
   found_home=1
-  if [ -f "$home/ASSISTANT_ID.md" ]; then
-    id=$(front id "$home/ASSISTANT_ID.md"); principal=$(front principal "$home/ASSISTANT_ID.md")
-    ver=$(front assistants-spec "$home/ASSISTANT_ID.md")
-    idfile=ASSISTANT_ID.md; self=ASSISTANT_SELF.md; wallet=ASSISTANT_WALLET.md
-  elif [ -f "$home/ASSISTANTS.md" ]; then
-    desk="$home/ASSISTANTS.md"
-    id=$(resident id "$desk"); self=$(resident self "$desk"); wallet=$(resident wallet "$desk")
-    principal="${id#*+}"; idfile=; ver=$(front assistants-spec "$desk")
-  else
-    continue
-  fi
+  [ -f "$home/ASSISTANT_ID.md" ] || continue
+  id=$(front id "$home/ASSISTANT_ID.md"); principal=$(front principal "$home/ASSISTANT_ID.md")
+  ver=$(spec_ver "$home/ASSISTANT_ID.md")
+  idfile=ASSISTANT_ID.md; self=ASSISTANT_SELF.md; wallet=ASSISTANT_WALLET.md
   [ -n "$id" ] && [ -f "$home/$wallet" ] || continue
   role=$(role_in "$home/$wallet")
   [ -n "$role" ] || continue
@@ -113,7 +105,6 @@ while IFS= read -r home; do
   fi
   [ "$mode" = id ] && { echo "$id"; exit 0; }
   if [ "$mode" = pack ]; then
-    [ -n "$idfile" ] || { echo "assistants-visit: --pack needs a 0.5 home (ASSISTANT_ID.md)" >&2; exit 1; }
     out="$carry/$id"
     mkdir -p "$out/spaces" || exit 1
     cp "$home/ASSISTANT_ID.md" "$out/"
@@ -138,7 +129,7 @@ for set in "$carry"/*/; do
   id=$(front id "${set}ASSISTANT_ID.md"); principal=$(front principal "${set}ASSISTANT_ID.md")
   role=$(role_in "$entry")
   [ -n "$id" ] && [ -n "$role" ] || continue
-  ver=$(front assistants-spec "${set}ASSISTANT_ID.md")
+  ver=$(spec_ver "${set}ASSISTANT_ID.md")
   if min=$(too_old "$ver"); then [ "$mode" = wake ] && stay_out "$id" "$ver" "$min"; exit 0; fi
   [ "$mode" = id ] && { echo "$id"; exit 0; }
   pub=; [ -f "${set}ASSISTANT_SELF_PUBLIC.md" ] && pub=" and ${set}ASSISTANT_SELF_PUBLIC.md"

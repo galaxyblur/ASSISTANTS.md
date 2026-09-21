@@ -1,4 +1,4 @@
-# ASSISTANTS.md: Reference Binding (git + markdown)
+# VISITORS.md: Reference Binding (git + markdown)
 
 > Version 0.6.0 · Draft, unreleased · Enacts [SPEC.md](SPEC.md), the framework. Until 0.5.0 this text was the spec itself; section numbers are unchanged, so an older "SPEC §8" is §8 here.
 
@@ -8,7 +8,7 @@ The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are used as described 
 
 ## 1. Purpose and scope
 
-`AGENTS.md` is about interaction: what an agent may do in a space and how it does it. `ASSISTANTS.md` is about the exchange of information, and nothing else.
+`AGENTS.md` is about interaction: what an agent may do in a space and how it does it. `VISITORS.md` is about the exchange of information, and nothing else.
 
 > Agents forget; assistants remember. This spec makes every assistant answer to one person, and lets every space decide what it may carry away.
 
@@ -34,7 +34,7 @@ The test for any rule: if it governs information crossing one of those boundarie
 - **Idiocortex.** An idiocorpus with a resident assistant, marked by `ASSISTANT_ID.md` at its root (§10). The assistant animates the corpus; it is not the corpus.
 - **Home.** The role an idiocortex plays for its assistant. The person owns it.
 - **ID, wallet, self.** The three files that make an idiocorpus a home (§10).
-- **Front desk.** A space's `ASSISTANTS.md`.
+- **Front desk.** A space's `VISITORS.md`.
 - **Chain.** The record of who acted for whom: person → assistant (if any) → agent.
 - **Visit.** One session's presence in a space.
 - **Board.** A space's message area.
@@ -114,14 +114,14 @@ A visit record is one JSON line:
 
 ## 7. The front desk
 
-`ASSISTANTS.md` sits at the space root, next to `AGENTS.md`. `AGENTS.md` SHOULD contain a pointer:
+`VISITORS.md` sits at the space root, next to `AGENTS.md`. `AGENTS.md` SHOULD contain a pointer:
 
-> Agents acting for a person: read ASSISTANTS.md.
+> Whoever works here for a person: read VISITORS.md.
 
 The file opens with YAML frontmatter:
 
 ```yaml
-assistants-spec: 0.5.0
+visitors-spec: 0.5.0
 owner: alice@github.com
 members: [alice@github.com, bob@github.com]
 issuers: [github.com]
@@ -140,7 +140,7 @@ unattributed: read-only    # read-only | none
 | `members` | persons who may act here |
 | `issuers` | issuers this space trusts to vouch for persons |
 | `assistants` | `allowed`: members may act through their assistant. `none`: no visitor that remembers; members use plain agents only |
-| `min-spec` | optional. An assistant whose `ASSISTANT_ID.md` declares an older `assistants-spec` does not enter as an assistant (see *Versions*) |
+| `min-spec` | optional. An assistant whose `ASSISTANT_ID.md` declares an older `visitors-spec` does not enter as an assistant (see *Versions*) |
 | `log-reads` | the visit record's level of detail |
 | `visits` | a directory path, `git`, or `none` (§6) |
 | `board` | a directory path, or `none` if the space receives no messages |
@@ -154,17 +154,17 @@ The body is human-readable and MUST include:
 - the arrival procedure
 - any house rules beyond the frontmatter
 
-**Arrival procedure.** An assistant first wakes from its home (§11). Then read `AGENTS.md`, then `ASSISTANTS.md`, then open board messages addressed to your principal or to `any`. Then begin the visit record.
+**Arrival procedure.** An assistant first wakes from its home (§11). Then read `AGENTS.md`, then `VISITORS.md`, then open board messages addressed to your principal or to `any`. Then begin the visit record.
 
-**Versions.** Two version numbers meet at the door, and both are `assistants-spec` fields. The front desk's says which spec the space's policy is written in. The visitor's, in its `ASSISTANT_ID.md`, says which spec the assistant follows.
+**Versions.** Two version numbers meet at the door, and both are `visitors-spec` fields. The front desk's says which spec the space's policy is written in. The visitor's, in its `ASSISTANT_ID.md`, says which spec the assistant follows.
 
 - *The space restricts the visitor.* A front desk MAY set `min-spec`. An assistant whose declared version is lower MUST NOT enter as an assistant. The session MAY go on as a plain agent, which carries nothing away. It SHOULD tell its person why, and that upgrading the home would fix it. Versions compare as SemVer. A space has a reason to ask: a rule it relies on, such as the carried set or the closed home, exists only from some version on.
 - *The visitor meets an older front desk.* It follows the front desk as written. A field the front desk lacks takes the default in [UPGRADING.md](UPGRADING.md). One case matters today: a front desk below 0.5 has no `owner`. If it lists one member, that member is the owner. If it lists several, the space has no declared owner, and a visitor SHOULD say so to its person.
 - *The visitor meets a newer front desk.* It MUST treat a field it doesn't know as the more careful reading, and SHOULD tell its person that its home is behind.
 
-**Changing the front desk.** The front desk is the owner's policy, so only the owner changes it, or an agent acting for the owner. That includes upgrading its pin. Anyone else proposes a change through the board. [UPGRADING.md](UPGRADING.md) gives the steps from each version to the next, written so that an agent can follow them. The instruction is one line: *adopt the latest ASSISTANTS.md spec here.*
+**Changing the front desk.** The front desk is the owner's policy, so only the owner changes it, or an agent acting for the owner. That includes upgrading its pin. Anyone else proposes a change through the board. [UPGRADING.md](UPGRADING.md) gives the steps from each version to the next, written so that an agent can follow them. The instruction is one line: *adopt the latest VISITORS.md spec here.*
 
-**No front desk.** A space without an `ASSISTANTS.md` has stated no policy, so the most careful one applies. An assistant MAY work there only if its wallet lists the space. It MUST treat the space as `carry-out: none` with no board, and MUST record the visit at home.
+**No front desk.** A space without an `VISITORS.md` has stated no policy, so the most careful one applies. An assistant MAY work there only if its wallet lists the space. It MUST treat the space as `carry-out: none` with no board, and MUST record the visit at home.
 
 ## 8. Carry rules
 
@@ -210,10 +210,10 @@ A person's knowledge space is an idiocorpus. It becomes an idiocortex, and an as
 
 The names are fixed so that any agent, and any tool, can tell a home by looking. `ASSISTANT_ID.md` is the marker. A home MUST have all three. The assistant's name appears inside the ID file and never in a filename, so a home reads the same whoever lives there.
 
-**`ASSISTANT_ID.md`** is small and safe to show. It SHOULD hold nothing the person wouldn't put in a commit trailer. Its `assistants-spec` is the version the assistant follows, which a space may test against its `min-spec` (§7).
+**`ASSISTANT_ID.md`** is small and safe to show. It SHOULD hold nothing the person wouldn't put in a commit trailer. Its `visitors-spec` is the version the assistant follows, which a space may test against its `min-spec` (§7).
 
 ```yaml
-assistants-spec: 0.5.0
+visitors-spec: 0.5.0
 id: ada+alice@github.com
 name: Ada
 principal: alice@github.com
@@ -249,8 +249,6 @@ approved: 2026-09-20
 
 A home's front desk SHOULD set `owner` and `members` to its person alone, and `carry-out: none`. The identity load (§8) is its own flow and is not carry-out. Everything else leaves a home only as the owner's release (§8).
 
-**The `resident` block is deprecated.** Before 0.5 a home was marked by a `resident` block in its front desk, naming `id`, `self` and `wallet` paths. Tools SHOULD still read it when `ASSISTANT_ID.md` is absent, until 0.6.
-
 ## 11. Sessions
 
 An agent session is mortal, and what it doesn't write down is lost. Two duties follow, and both are about information:
@@ -262,11 +260,11 @@ An agent session is mortal, and what it doesn't write down is lost. Two duties f
 
 **Waking in a space.** A session often starts inside a space, not in the home. An assistant acting there MUST wake from its home first: read `ASSISTANT_ID.md`, `ASSISTANT_SELF.md` and `ASSISTANT_WALLET.md`, and nothing else from the home (§8), and confirm the wallet lists this space. If the home can't be reached, it wakes from the carried set (§8). With neither, there is no assistant in the session: the agent works as a plain agent and says so. Where the home is on a given machine is the person's configuration, never the space's. The space names no assistants. [`tools/assistants-visit`](tools/assistants-visit) does this for git spaces: it matches the current repo's `origin` against the wallets of the homes configured on that machine. It prints the wake lines, or prints nothing if no wallet lists the repo. Run it from the harness's session-start hook.
 
-**Visiting from the home.** The reverse also happens: a session starts in the home and walks into a space. The harness loaded the home's instructions, so the space's `AGENTS.md` and `ASSISTANTS.md` reach the agent only as text it chooses to read. Two things never mix. Identity travels with the assistant, and conventions belong to the space.
+**Visiting from the home.** The reverse also happens: a session starts in the home and walks into a space. The harness loaded the home's instructions, so the space's `AGENTS.md` and `VISITORS.md` reach the agent only as text it chooses to read. Two things never mix. Identity travels with the assistant, and conventions belong to the space.
 
 - **Travels, always:** whom the assistant acts for, how it speaks with its person, the chain, leak checks, and the carry rules.
 - **Belongs to the space, always:** how work is done there. For anything written in the space, the space's conventions override the home's.
-- Before the first write, the agent MUST read the space's `AGENTS.md` and `ASSISTANTS.md` in full. Partial reads and searches don't count.
+- Before the first write, the agent MUST read the space's `AGENTS.md` and `VISITORS.md` in full. Partial reads and searches don't count.
 - If a space rule and a home rule conflict, the assistant MUST stop and ask its person. It never picks silently.
 
 A session started elsewhere also misses the space's skills and hooks. Which work is safe to do that way is a question about work, so it is the person's and the space's to settle. A common answer: a visiting session keeps to the space's knowledge layer, and anything touching code, configuration, tests or releases waits for a session started in the space.
@@ -279,7 +277,7 @@ A session started elsewhere also misses the space's skills and hooks. Which work
 
 ## 13. Conformance
 
-- **A conforming space** has an `ASSISTANTS.md` with the §7 frontmatter, including its one `owner` and the spec version it is pinned to, and has the pointer in `AGENTS.md`.
+- **A conforming space** has an `VISITORS.md` with the §7 frontmatter, including its one `owner` and the spec version it is pinned to, and has the pointer in `AGENTS.md`.
 - **A conforming assistant** has an ID per §4, exactly one person, and exactly one home with the three §10 files, the ID file declaring the spec version it follows. It stays out of spaces whose `min-spec` it doesn't meet. It carries the chain on every write, records every visit, follows the carry rules, and keeps home matters out of its visits.
 - **A plain agent** in a conforming space follows the front desk and carries a chain with no assistant. That is full participation. Nothing needs to change when its person later gets an assistant.
 

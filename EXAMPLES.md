@@ -12,12 +12,12 @@ Each story says what someone wanted, what they set up, and what then happens.
 
 **Has:** an idiocorpus. Her own knowledge space, nobody living in it.
 
-**Does:** adds a front desk from [the home template](templates/ASSISTANTS.home.md), then three files at the root:
+**Does:** adds a front desk from [the home template](templates/VISITORS.home.md), then three files at the root:
 
 ```
 notes/
 ├── AGENTS.md             how the notes are kept (hers, not this spec's)
-├── ASSISTANTS.md         owner: alice · members: [alice] · carry-out: none
+├── VISITORS.md         owner: alice · members: [alice] · carry-out: none
 ├── ASSISTANT_ID.md       ada+alice@github.com
 ├── ASSISTANT_SELF.md     empty headings, to be filled by use
 └── ASSISTANT_WALLET.md   one space: this one, role: home
@@ -124,7 +124,7 @@ Bob can also set `assistants: none`. That refuses every visitor that remembers, 
 
 **Wants:** `garden` is pinned to 0.4.1. Alice wants it current.
 
-**Does:** in `garden`, says: *adopt the latest ASSISTANTS.md spec here.*
+**Does:** in `garden`, says: *adopt the latest VISITORS.md spec here.*
 
 **Then:** the agent reads the pin, reads [UPGRADING.md](UPGRADING.md), and checks that Alice owns the space. It asks her one question (*you're the only member; are you the owner?*), adds `owner:`, bumps the pin, and saves the change the way `garden`'s `AGENTS.md` says to. It reports that nothing else changed.
 
