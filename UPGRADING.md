@@ -9,8 +9,8 @@ How to move a space, or an assistant's home, to the latest spec. It is written s
 An agent given that instruction, in any space:
 
 1. **Find where you are.** Read the `assistants-spec` pin in this space's `ASSISTANTS.md`. If there is no front desk, this is an adoption and not an upgrade: follow "Adopt it" in the [README](README.md).
-2. **Find where the spec is.** Read the version line at the top of the canonical [SPEC.md](https://github.com/galaxyblur/ASSISTANTS.md/blob/main/SPEC.md), and this file beside it.
-3. **Check who is asking.** Only the owner changes a front desk (SPEC §7). If the front desk names an `owner` and your principal isn't that person, stop. Write the proposal to the space's board, addressed to the owner.
+2. **Find where the spec is.** Read the version line at the top of the canonical [BINDING.md](https://github.com/galaxyblur/ASSISTANTS.md/blob/main/BINDING.md), and this file beside it.
+3. **Check who is asking.** Only the owner changes a front desk (BINDING §7). If the front desk names an `owner` and your principal isn't that person, stop. Write the proposal to the space's board, addressed to the owner.
 4. **Walk the steps.** Apply each section below in order, from the pin you found up to the latest. Skip none: each assumes the one before it.
 5. **Ask only what the steps tell you to ask.** Everything else has a stated default. Ask all the questions at once, before changing anything.
 6. **Change only what this spec owns.** The front desk, the `ASSISTANT_*` files, the board and visit directories, and the one pointer line in `AGENTS.md`. Leave the rest of `AGENTS.md` and the space alone.

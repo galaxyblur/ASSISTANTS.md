@@ -20,7 +20,7 @@ standing:
 
 # Wallet: ada+alice@github.com
 
-Pointers only. No secrets live here. This is the one place that knows every space the resident may enter, so only the entry for the space being visited ever travels (SPEC §8).
+Pointers only. No secrets live here. This is the one place that knows every space the resident may enter, so only the entry for the space being visited ever travels (BINDING §8).
 
 - **Spaces:** where the resident may go. Access itself comes from alice's git credentials. Keep `repo` and `role` as single unquoted tokens; tools read them.
 - **Standing:** anything the resident may do without being invoked each time. Give each a `scope`, or it fires everywhere. Delete an entry to revoke it. A standing permission never widens what a space's AGENTS.md allows.

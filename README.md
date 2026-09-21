@@ -29,18 +29,9 @@ An assistant uses agents as its medium, the same way a person does.
 
 ## The rules
 
-1. Every assistant has exactly one person.
-2. Every action traces back to that person.
-3. In any one space, a person acts through at most one assistant.
-4. No assistant claims another's identity.
-5. One assistant per person is recommended. Separate compartments are the person's choice.
-6. An assistant takes direction only from its own person.
-7. The person decides. An assistant holds memory for its person, never understanding.
-8. Every space has exactly one owner, and the owner is a person.
-9. An assistant has exactly one home, and a home houses one assistant.
-10. A space appears in at most one of a person's wallets. Compartments don't bleed.
+Fourteen principles, a two-minute read: [SPEC.md](SPEC.md).
 
-An assistant that isn't tied to exactly one person leaves no one responsible for it. A space that isn't tied to exactly one person has the same problem. These rules make accountability part of the design, not a matter of discipline.
+An assistant that isn't tied to exactly one person leaves no one responsible for it. A space that isn't tied to exactly one person has the same problem. The rules make accountability part of the design, not a matter of discipline.
 
 ## Idiocorpus, idiocortex, home
 
@@ -118,7 +109,8 @@ Name the assistant and the agent together: the assistant persists, and the agent
 
 ## Files
 
-- [SPEC.md](SPEC.md): the specification (v0.5.0, draft)
+- [SPEC.md](SPEC.md): the framework. Words, fourteen principles, a two-minute read
+- [BINDING.md](BINDING.md): the reference binding, git and markdown: fields, files, formats. This was the spec through 0.5.0
 - [EXAMPLES.md](EXAMPLES.md): nine short stories of the spec in use. Start here
 - [UPGRADING.md](UPGRADING.md): moving a space or a home to the latest version, step by step
 - [FUTURE.md](FUTURE.md): open questions, limitations, ideas
@@ -128,4 +120,4 @@ Name the assistant and the agent together: the assistant persists, and the agent
 
 ## Status
 
-v0.5.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [SPEC.md §14](SPEC.md#14-relation-to-existing-standards).
+v0.5.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [BINDING.md §14](BINDING.md#14-relation-to-existing-standards).

@@ -6,7 +6,7 @@ issuers: [github.com]
 assistants: allowed        # allowed | none
 # min-spec: 0.5.0          # optional: admit only assistants following this spec or newer
 log-reads: visit           # visit | file
-visits: visits/            # a path | git | none (SPEC §6)
+visits: visits/            # a path | git | none (BINDING §6)
 board: board/              # a path | none
 carry-out: attributed      # attributed | none (none for third-party data)
 unattributed: read-only    # read-only | none

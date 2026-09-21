@@ -8,7 +8,7 @@
 #         assistants-visit --id [dir]     print the resident's ID when dir is its home or a
 #                                         wallet space; nothing elsewhere. For status lines
 #                                         and pane labels.
-#         assistants-visit --pack [dir]   write the carried set (SPEC §8) for the space at dir,
+#         assistants-visit --pack [dir]   write the carried set (BINDING §8) for the space at dir,
 #                                         for machines that can't reach the home. Copy the
 #                                         directory it prints to the same path there.
 # Homes:  $ASSISTANTS_HOMES (colon-separated paths), else ~/.config/assistants/homes

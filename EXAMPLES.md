@@ -1,6 +1,6 @@
 # Examples
 
-Short stories showing the spec in use. Alice and Bob are people. Ada is Alice's assistant. None of this is normative; [SPEC.md](SPEC.md) is.
+Short stories showing the spec in use. Alice and Bob are people. Ada is Alice's assistant. None of this is normative. [SPEC.md](SPEC.md) is the framework, and [BINDING.md](BINDING.md) is the git and markdown detail these stories use.
 
 Each story says what someone wanted, what they set up, and what then happens.
 

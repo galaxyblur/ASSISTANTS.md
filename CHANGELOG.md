@@ -4,6 +4,8 @@ Follows [Semantic Versioning](https://semver.org/).
 
 ## Unreleased
 
+**The spec is now a framework.** `SPEC.md` is one page: seven words, fourteen principles, what a space states, and the limits. It names no file formats and no tools. Everything concrete (identifiers, the chain's git trailers, visit records, front desk fields, the home files, the carried set, signing, conformance) moved unchanged to `BINDING.md`, the reference binding for git and markdown, with its section numbers kept. Where the two disagree, the framework wins. Principle 3 now says outright that a policy is the owner's to make exceptions to.
+
 **Carry-out has no assumed destination.** It was defined as space → home, while §8 also used it to gate board messages between spaces, §10 told homes to set `none`, and Example 4 sent a message out of a `none` space. Now: carry-out is information leaving a space with an assistant, wherever it lands, under one rule. `attributed`: it may leave, citing the space, at any destination. `none`: nothing leaves on the assistant's initiative; the space's owner may release one item at a time as a board message, which is the record. A home is the same case, its person being its owner. Example 4 and the templates follow.
 
 ## 0.5.0 (2026-09-20)
