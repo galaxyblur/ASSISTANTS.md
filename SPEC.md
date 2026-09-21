@@ -3,43 +3,42 @@
 > Version 0.6.0 · Draft, unreleased · A framework, not a protocol.
 > One way to enact it: [BINDING.md](BINDING.md) (git + markdown). In use: [EXAMPLES.md](EXAMPLES.md).
 
-Agents forget; assistants remember. An assistant that remembers, and moves between the places its person works, raises questions a forgetful tool never did. Who is it acting for? What did it bring in? What will it take away?
+`AGENTS.md` says how work is done in a space. This says who is acting there, what may come in, and what may be written down somewhere else afterwards. Nothing more.
 
-`AGENTS.md` says how work is done in a space. This framework is about information and nothing else: what enters a space, what leaves it, what is recorded, and what an assistant keeps at home. It grants no abilities and removes none.
+It applies to whoever works in a space: a person by hand, an agent, an assistant that remembers. No file can govern a head. A file can govern a record. So these rules are about records.
 
-The aim: when these rules hold, an assistant can work without supervision, and neither its person nor a space's owner has to worry about what moved.
+When they hold, work can go unsupervised, and no one has to wonder what moved.
 
 ## Words
 
 - **Person.** A human. The only one ever accountable.
-- **Identity.** An account that names a person. It is all a space ever sees of them. A person may have more than one.
-- **Agent.** An AI runtime for one session. Replaceable.
-- **Assistant.** A persistent helper with a memory, bound to one identity. It speaks through agents. Its name is a label; the identity carries the weight.
+- **Identity.** An account that names a person. It is all a space ever sees of them. A person may have several.
 - **Space.** Anywhere work happens.
-- **Home.** The person's own knowledge space, where their assistant's memory lives.
-- **Chain.** Who acted for whom: person → assistant → agent.
+- **Visitor.** Whoever is working in a space for an identity: the person, an agent, an assistant.
+- **Assistant.** A visitor that keeps a memory of its own, in its person's **home**. Its name is a label; the identity carries the weight.
 - **Board.** Where a space receives messages.
 
 ## Principles
 
-1. **One to one.** Every assistant belongs to exactly one identity, and an identity has at most one assistant. Its name says whose. It owns nothing.
-2. **Every action names its person.** The chain goes on every write. An action that can't name a person is unattributed, and gets the least trust.
-3. **One owner.** Every space has exactly one owner, a person. The policy is the owner's to set, and the owner's to make exceptions to.
-4. **Only its person directs an assistant.** Anything from anyone else, other assistants included, is a suggestion.
-5. **Identity travels; conventions stay.** Who the assistant is and whom it serves go everywhere. How work is done belongs to each space.
-6. **The home stays home.** An assistant brings its identity into a space and nothing else. Each space is aware only of itself.
-7. **Nothing enters unapproved.** Whatever an assistant brings into a space, its person approved first.
-8. **Each space decides what leaves.** `carry-out: attributed`: what is learned there may go anywhere, citing the space. `carry-out: none`: nothing leaves, unless the owner releases that one item. The destination doesn't change the rule.
-9. **Spaces leave word; they don't reach in.** One space tells another by a message on its board. A message is a suggestion.
-10. **Every visit leaves a trace.** The space keeps it, or the assistant does.
-11. **Compartments don't bleed.** A person who wants separate assistants uses separate identities. A space admits identities, so it admits one assistant for each. Nothing passes between compartments.
-12. **Grants are written down.** What an assistant may do uninvoked is recorded, scoped and revocable. It never widens what a space allows.
-13. **When unsure, the careful reading.** No stated policy means nothing leaves. Two rules in conflict means stop and ask.
+1. **Every action names an identity.** One that can't is unattributed, and gets the least trust.
+2. **Every space has one owner.** The owner says who may enter and what may leave. Only the owner makes exceptions.
+3. **Nothing enters unapproved.** What a visitor writes into a space from elsewhere, its person approved first.
+4. **Each space decides what leaves.** To leave is to be written down anywhere outside the space: a home, a notebook, a tool's memory, another space. `carry-out: attributed`: it may, citing the space. `carry-out: none`: it may not, unless the owner releases that one item.
+5. **Spaces leave word; they don't reach in.** One space tells another through a message on its board. A message is a suggestion.
+6. **Every visit leaves a trace.** The space keeps it, or the visitor does.
+7. **When unsure, the careful reading.** No stated policy means nothing leaves.
+
+### For assistants
+
+8. **One to one.** An assistant belongs to one identity, and an identity has at most one assistant. A person who wants two uses two identities, and nothing passes between them.
+9. **Only its person directs it.** Everything else is a suggestion.
+10. **It brings who it is, not what it knows.** Identity travels. The home stays home. How work is done belongs to the space.
+11. **Standing grants are written down.** Scoped, revocable, and never wider than the space allows.
 
 ## What a space states
 
-Its owner. Its members. Whether assistants may enter. `carry-out`. Whether it keeps a board, and a record of visits. Nothing about how work is done.
+Its owner. Who may enter. `carry-out`. Whether it keeps a board, and a record of visits.
 
 ## Limits
 
-This is convention. It makes misuse visible, not impossible. Signed writes turn a declared chain into a verified one; everything else is on the honor system.
+This is convention. It makes misuse visible, not impossible. A signed write turns a declared identity into a verified one. The rest is on the honor system.
