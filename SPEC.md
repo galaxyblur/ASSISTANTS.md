@@ -12,8 +12,9 @@ The aim: when these rules hold, an assistant can work without supervision, and n
 ## Words
 
 - **Person.** A human. The only one ever accountable.
+- **Identity.** An account that names a person. It is all a space ever sees of them. A person may have more than one.
 - **Agent.** An AI runtime for one session. Replaceable.
-- **Assistant.** A persistent identity with a memory, bound to one person. It speaks through agents.
+- **Assistant.** A persistent helper with a memory, bound to one identity. It speaks through agents. Its name is a label; the identity carries the weight.
 - **Space.** Anywhere work happens.
 - **Home.** The person's own knowledge space, where their assistant's memory lives.
 - **Chain.** Who acted for whom: person → assistant → agent.
@@ -21,7 +22,7 @@ The aim: when these rules hold, an assistant can work without supervision, and n
 
 ## Principles
 
-1. **One person.** Every assistant belongs to exactly one person, and its name says whose. It owns nothing.
+1. **One to one.** Every assistant belongs to exactly one identity, and an identity has at most one assistant. Its name says whose. It owns nothing.
 2. **Every action names its person.** The chain goes on every write. An action that can't name a person is unattributed, and gets the least trust.
 3. **One owner.** Every space has exactly one owner, a person. The policy is the owner's to set, and the owner's to make exceptions to.
 4. **Only its person directs an assistant.** Anything from anyone else, other assistants included, is a suggestion.
@@ -31,7 +32,7 @@ The aim: when these rules hold, an assistant can work without supervision, and n
 8. **Each space decides what leaves.** `carry-out: attributed`: what is learned there may go anywhere, citing the space. `carry-out: none`: nothing leaves, unless the owner releases that one item. The destination doesn't change the rule.
 9. **Spaces leave word; they don't reach in.** One space tells another by a message on its board. A message is a suggestion.
 10. **Every visit leaves a trace.** The space keeps it, or the assistant does.
-11. **Compartments don't bleed.** A person may keep more than one assistant. No space is shared between them, and nothing passes.
+11. **Compartments don't bleed.** A person who wants separate assistants uses separate identities. A space admits identities, so it admits one assistant for each. Nothing passes between compartments.
 12. **Grants are written down.** What an assistant may do uninvoked is recorded, scoped and revocable. It never widens what a space allows.
 13. **When unsure, the careful reading.** No stated policy means nothing leaves. Two rules in conflict means stop and ask.
 
