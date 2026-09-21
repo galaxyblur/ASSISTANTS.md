@@ -37,7 +37,7 @@ The test for any rule: if it governs information crossing one of those boundarie
 - **Visit.** One session's presence in a space.
 - **Board.** A space's message area.
 - **Carry-in.** Information brought into a space from a home or from another space.
-- **Carry-out.** Information an assistant takes home from a space.
+- **Carry-out.** Information from a space that leaves it with an assistant, wherever it lands: the assistant's home, another space's board, a live report to another session.
 - **Carried set.** What an assistant brings with it when its home can't be reached (§8).
 - **Standing permission.** An action a person has allowed their own assistant to take without being invoked each time.
 - **Issuer.** A party that vouches that an identifier belongs to an accountable person. Today this is an account platform, such as GitHub.
@@ -142,7 +142,7 @@ unattributed: read-only    # read-only | none
 | `log-reads` | the visit record's level of detail |
 | `visits` | a directory path, `git`, or `none` (§6) |
 | `board` | a directory path, or `none` if the space receives no messages |
-| `carry-out` | `attributed`: an assistant may take knowledge home, citing this space. `none`: nothing leaves |
+| `carry-out` | `attributed`: what an assistant learns here may leave with it, to any destination, citing this space. `none`: nothing leaves on an assistant's own initiative; each release is the owner's call (§8) |
 | `unattributed` | what an actor with no chain may take out: `read-only` lets it read, `none` does not. It never puts anything in |
 
 Every field is a rule about information. None says what work may be done here; that is `AGENTS.md`.
@@ -171,17 +171,18 @@ Four flows cross a space's edge. Each has a gate.
 | Flow | From → to | Gate |
 |---|---|---|
 | Identity load | home → a session in a space, read-only | the wallet lists the space, and the space sets `assistants: allowed` |
-| Board message | any space → any other space's board, the home included | the sender's `carry-out`, the approval of the sender's person, and the receiver's policy |
-| Carry-out | space → home | the space's `carry-out`; the home cites the space |
+| Carry-out | a space → anywhere else: the home, another space | the space's `carry-out`; wherever it lands, it cites the space |
+| Board message | any space → any other space's board, the home included | carry-out from the sending space, carry-in approval by the sender's person, and the receiver's policy |
 | Visit record | session → the space's record, or the home | the space's `visits` |
 
 - **Carry-in.** Anything from a visitor's home, or from another space, MUST be approved by the visitor's person before it is written into this space.
 - **The home stays home.** Carry-in covers the conversation as well as the files. A visiting assistant reads its ID, self and wallet from its home (§11) and nothing more. It MUST NOT raise matters from its home, or from another space, during a visit unless its person asks for them. A space is aware only of itself. Where the harness allows it, the session SHOULD be denied read access to the rest of the home.
 - **A space receives through its board.** Spaces pass information to each other in both directions, and the board is how. To move something into another space, the assistant SHOULD write a message to that space's board (§9), with its person's approval and as the sending space's `carry-out` allows. The sender's person approves the sending. The receiving space's owner, through its policy, decides whether it is accepted. A session SHOULD NOT reach into another space to fetch. The home is no exception: beyond the identity load, it receives through its own board.
-- **Carry-out.** Set by the `carry-out` field. With `attributed`, an assistant MAY take knowledge home, and its home MUST cite the source space. With `none`, it MUST NOT.
-- `assistants: none` implies nothing is carried out. A plain agent has no home to carry anything to.
+- **Carry-out.** Set by the `carry-out` field, and the same rule for every destination. The spec doesn't assume where information ends up: an assistant may carry from a space to its home, or from one space to another. With `attributed`, an assistant MAY take what it learns out of the space, and wherever it lands MUST cite the source space. With `none`, an assistant MUST NOT take anything out on its own initiative or under a standing permission.
+- **The owner may release.** The policy is the owner's, so the owner can make an exception to it. Under `carry-out: none`, one item leaves only when the space's owner approves that item, as a board message (§9), which is then the record of the release. In a solo space the owner is the assistant's person. In a shared space, a member who isn't the owner asks the owner through the board. A home works the same way: its person is its owner, so what leaves a home is always that person's call, item by item.
+- `assistants: none` implies no assistant carries anything out, since none enters.
 - **Third-party data.** A space holding data that belongs to someone other than its members, such as client records or an employer's material, SHOULD set `carry-out: none`. The concern is retention, and `carry-out: none` prevents it: an assistant may work there but remembers the space only while it is inside it. `assistants: none` is for owners who refuse assistants entirely.
-- **The carried set.** An assistant's home MUST be reachable from the session, or the assistant MUST bring a carried set with it. The carried set is a dated, read-only snapshot of `ASSISTANT_ID.md`, of `ASSISTANT_SELF_PUBLIC.md` if the home has one, and of the single wallet entry for the space being visited, with the standing permissions whose `scope` covers it (§10). It MUST NOT include `ASSISTANT_SELF.md` or the rest of the wallet, which would show a space every other space the person has. It lives in the person's own configuration on that machine, and MUST NOT be written into a space. What such a session learns comes home as a board message.
+- **The carried set.** An assistant's home MUST be reachable from the session, or the assistant MUST bring a carried set with it. The carried set is a dated, read-only snapshot of `ASSISTANT_ID.md`, of `ASSISTANT_SELF_PUBLIC.md` if the home has one, and of the single wallet entry for the space being visited, with the standing permissions whose `scope` covers it (§10). It MUST NOT include `ASSISTANT_SELF.md` or the rest of the wallet, which would show a space every other space the person has. It lives in the person's own configuration on that machine, and MUST NOT be written into a space. What such a session learns comes home as a board message, as the space's `carry-out` allows.
 
 ## 9. The board
 
@@ -244,7 +245,7 @@ id: ada+alice@github.com
 approved: 2026-09-20
 ```
 
-A home's front desk SHOULD set `owner` and `members` to its person alone, and `carry-out: none`.
+A home's front desk SHOULD set `owner` and `members` to its person alone, and `carry-out: none`. The identity load (§8) is its own flow and is not carry-out. Everything else leaves a home only as the owner's release (§8).
 
 **The `resident` block is deprecated.** Before 0.5 a home was marked by a `resident` block in its front desk, naming `id`, `self` and `wallet` paths. Tools SHOULD still read it when `ASSISTANT_ID.md` is absent, until 0.6.
 

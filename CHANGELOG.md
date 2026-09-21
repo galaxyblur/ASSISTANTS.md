@@ -2,6 +2,10 @@
 
 Follows [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+**Carry-out has no assumed destination.** It was defined as space → home, while §8 also used it to gate board messages between spaces, §10 told homes to set `none`, and Example 4 sent a message out of a `none` space. Now: carry-out is information leaving a space with an assistant, wherever it lands, under one rule. `attributed`: it may leave, citing the space, at any destination. `none`: nothing leaves on the assistant's initiative; the space's owner may release one item at a time as a board message, which is the record. A home is the same case, its person being its owner. Example 4 and the templates follow.
+
 ## 0.5.0 (2026-09-20)
 
 **Scope.** `ASSISTANTS.md` is about the exchange of information; `AGENTS.md` remains the document about interaction (§1). The spec covers four boundaries: what comes into a space, what leaves it, what is recorded about who was there and for whom, and what passes between an assistant and its home. It no longer says what an assistant may do in a space or how. Cut or made non-normative on that test: §11's git cadence (pull, commit, push), and the knowledge-layer rule for sessions visiting from the home. `unattributed` is reworded as an information rule with the same behavior.

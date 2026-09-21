@@ -35,7 +35,7 @@ notes/
 
 **Then:** Alice opens a session in `garden`. The session-start hook runs `assistants-visit`, which finds `garden` in Ada's wallet and prints the wake lines. The agent reads Ada's ID, self and wallet from the home and **nothing else**, then `garden`'s `AGENTS.md` and front desk.
 
-What Ada may *do* in `garden` is whatever `AGENTS.md` lets any agent do. The front desk added nothing to that and took nothing away. It settled only three things: commits carry `Assistant: ada+alice@github.com`, those commits are the visit record, and what Ada learns there she may take home if she cites `garden`.
+What Ada may *do* in `garden` is whatever `AGENTS.md` lets any agent do. The front desk added nothing to that and took nothing away. It settled only three things: commits carry `Assistant: ada+alice@github.com`, those commits are the visit record, and what Ada learns there may leave with her, to her home or to another of Alice's spaces, if it cites `garden`.
 
 Alice's notes never come up. Ada doesn't mention the dentist.
 
@@ -69,9 +69,11 @@ Bob thinks the front desk should log file reads. He isn't the owner, so he doesn
 
 **Front desk:** `carry-out: none`.
 
-**Then:** Ada works there like anywhere else. When the session ends, nothing about the clients goes home. Next week Ada knows the space exists (the wallet lists it) and knows nothing of what is in it until she is inside again. Her home records only that a visit happened, and when.
+**Then:** Ada works there like anywhere else. When the session ends, nothing about the clients leaves: not to the home, and not to any other space. Next week Ada knows the space exists (the wallet lists it) and knows nothing of what is in it until she is inside again. Her home records only that a visit happened, and when.
 
-One day Ada notices a better way to structure Alice's own notes, while working there. That is about Alice, not the clients. With Alice's approval, Ada posts it to the **home's** board, leak-checked, and a home session picks it up. The board is the one door, and Alice holds it.
+One day Ada notices a better way to structure Alice's own notes, while working there. Under `carry-out: none` Ada can't take that out herself, whatever it is about. She tells Alice, in the session. Alice owns this space, so the exception is hers to make: she reads the text, sees it says nothing about a client, and approves it. Ada posts it to the **home's** board, and a home session picks it up. The message is the record that the owner released one item. `none` means nothing leaves on Ada's say-so. It never meant the owner can't open her own door.
+
+In a repo Alice didn't own, the same idea would go to the owner's board first, and leave only if the owner said yes.
 
 ---
 
