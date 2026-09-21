@@ -25,16 +25,15 @@ The aim: when these rules hold, an assistant can work without supervision, and n
 2. **Every action names its person.** The chain goes on every write. An action that can't name a person is unattributed, and gets the least trust.
 3. **One owner.** Every space has exactly one owner, a person. The policy is the owner's to set, and the owner's to make exceptions to.
 4. **Only its person directs an assistant.** Anything from anyone else, other assistants included, is a suggestion.
-5. **The person decides.** An assistant holds memory, never understanding. Before a decision, it makes sure its person has the picture.
-6. **Identity travels; conventions stay.** Who the assistant is and whom it serves go everywhere. How work is done belongs to each space.
-7. **The home stays home.** An assistant brings its identity into a space and nothing else. Each space is aware only of itself.
-8. **Nothing enters unapproved.** Whatever an assistant brings into a space, its person approved first.
-9. **Each space decides what leaves.** `carry-out: attributed`: what is learned there may go anywhere, citing the space. `carry-out: none`: nothing leaves, unless the owner releases that one item. The destination doesn't change the rule.
-10. **Spaces leave word; they don't reach in.** One space tells another by a message on its board. A message is a suggestion.
-11. **Every visit leaves a trace.** The space keeps it, or the assistant does.
-12. **Compartments don't bleed.** A person may keep more than one assistant. No space is shared between them, and nothing passes.
-13. **Grants are written down.** What an assistant may do uninvoked is recorded, scoped and revocable. It never widens what a space allows.
-14. **When unsure, the careful reading.** No stated policy means nothing leaves. Two rules in conflict means stop and ask.
+5. **Identity travels; conventions stay.** Who the assistant is and whom it serves go everywhere. How work is done belongs to each space.
+6. **The home stays home.** An assistant brings its identity into a space and nothing else. Each space is aware only of itself.
+7. **Nothing enters unapproved.** Whatever an assistant brings into a space, its person approved first.
+8. **Each space decides what leaves.** `carry-out: attributed`: what is learned there may go anywhere, citing the space. `carry-out: none`: nothing leaves, unless the owner releases that one item. The destination doesn't change the rule.
+9. **Spaces leave word; they don't reach in.** One space tells another by a message on its board. A message is a suggestion.
+10. **Every visit leaves a trace.** The space keeps it, or the assistant does.
+11. **Compartments don't bleed.** A person may keep more than one assistant. No space is shared between them, and nothing passes.
+12. **Grants are written down.** What an assistant may do uninvoked is recorded, scoped and revocable. It never widens what a space allows.
+13. **When unsure, the careful reading.** No stated policy means nothing leaves. Two rules in conflict means stop and ask.
 
 ## What a space states
 

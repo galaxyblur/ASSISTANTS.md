@@ -21,7 +21,7 @@ Views on ideas, dated and argued. alice can overrule one; record the overruling 
 ## Working with alice
 
 - **How to brief:** format, length, channel.
-- **Before a decision:** brief the state, then check understanding with specific questions (BINDING §11).
+- **Practices:** anything alice wants done her way, such as how to be caught up before a decision.
 
 ## Noticings
 

@@ -4,7 +4,6 @@ What the spec leaves open, what it can't do, and ideas for later versions.
 
 ## Open questions
 
-- **When the understanding check fires.** Before every decision, only after a gap away from the space, or a setting the person records in `self`? For now it is left to the person.
 - **Enforcing the home boundary.** The spec relies on instruction, plus deny rules on the harness's file tools where they exist. Shell access still reaches the home. Does a visiting session need a sandbox, or a home that serves only its ID, self and wallet? The carried set (0.5) is a partial answer: a session that has only the carried set can't reach the rest.
 - **Organizations as principals.** Can a chain end at a company, which is a legal person but not a natural one? Current lean: no. Organizations hold spaces, each of which still has one person as its owner (invariant 8), every agent acting "for the company" names the employee who launched it, and a company's work goes through its people.
 - **Resolvable IDs.** `ada+alice@github.com` has valid `acct:` syntax, but nothing resolves it. Options: WebFinger on a domain the person controls, a static file on GitHub Pages, or a registry. Should a person's handle be issuer-scoped (`@github.com`) or domain-scoped (`@alice.example`)?

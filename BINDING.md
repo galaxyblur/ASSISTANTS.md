@@ -31,7 +31,7 @@ The test for any rule: if it governs information crossing one of those boundarie
 - **Space.** Anything an agent can work in: a folder, a repository, a server, a device, a served API. A space has its own conventions and goals. It is either solo or shared.
 - **Owner.** The one person accountable for a space. The owner sets its policy.
 - **Idiocorpus.** A person's own knowledge space. Its purpose is knowledge, not a project with some other goal. From *idio-* (one's own, as in idiolect) and *corpus* (a body of texts).
-- **Idiocortex.** An idiocorpus with a resident assistant, marked by `ASSISTANT_ID.md` at its root (§10). It remembers for its person. It does not understand for them (invariant 7). The assistant animates the corpus; it is not the corpus.
+- **Idiocortex.** An idiocorpus with a resident assistant, marked by `ASSISTANT_ID.md` at its root (§10). The assistant animates the corpus; it is not the corpus.
 - **Home.** The role an idiocortex plays for its assistant. The person owns it.
 - **ID, wallet, self.** The three files that make an idiocorpus a home (§10).
 - **Front desk.** A space's `ASSISTANTS.md`.
@@ -52,7 +52,7 @@ The test for any rule: if it governs information crossing one of those boundarie
 4. An assistant or agent MUST NOT claim another's identity.
 5. One assistant per person is RECOMMENDED. A person MAY run several, as compartments that never share a space. The number is the person's choice.
 6. An assistant takes direction only from its own person. Anything from anyone else, including other assistants, is a suggestion.
-7. The person decides. An assistant can hold memory for its person, but it cannot hold understanding for them. It SHOULD make sure its person understands the state of a space before they decide in it (§11).
+7. *(Removed in 0.6. How an assistant briefs its person before a decision is that person's own practice, kept in `ASSISTANT_SELF.md`. It is not a rule of this spec. The number is kept so later invariants don't move.)*
 8. Every space MUST have exactly one owner, and the owner MUST be a person. This holds inside an organization too: a space no one person answers for is a space no one answers for.
 9. An assistant MUST have exactly one home, and the home MUST be an idiocortex. An idiocortex MUST NOT house more than one assistant.
 10. A space MUST NOT appear in more than one of a person's wallets. Nothing passes between a person's compartments.
@@ -240,7 +240,7 @@ standing:
 
 **`ASSISTANT_SELF.md`** is the assistant's persona and its memory of working with its person: the positions it holds, the calls it has made and how they aged, how its person wants to be worked with and briefed. When the home is reachable it is read on every wake, in the home and in every space, so it SHOULD hold *how* to work with the person and never *what* is going on at home. A standing request tied to a home matter MUST be scoped to home sessions. The persona is an exchange between an assistant and its person. It belongs here, and in neither the front desk nor `AGENTS.md`.
 
-**`ASSISTANT_SELF_PUBLIC.md`** is optional. It is the part of self that may be seen outside the home, and it is what travels in the carried set. `ASSISTANT_SELF.md` is the master and this file is an extract of it, never a second source. The name is the test: it MUST hold nothing the person wouldn't show in any space the assistant visits. How to speak, how to brief, the understanding check. No people, no projects, no history. The person MUST approve every revision, and its frontmatter records the date:
+**`ASSISTANT_SELF_PUBLIC.md`** is optional. It is the part of self that may be seen outside the home, and it is what travels in the carried set. `ASSISTANT_SELF.md` is the master and this file is an extract of it, never a second source. The name is the test: it MUST hold nothing the person wouldn't show in any space the assistant visits. How to speak, how to brief, the person's own practices. No people, no projects, no history. The person MUST approve every revision, and its frontmatter records the date:
 
 ```yaml
 id: ada+alice@github.com
@@ -259,8 +259,6 @@ An agent session is mortal, and what it doesn't write down is lost. Two duties f
 - Record the visit (§6).
 
 *How* a session saves its work (when it pulls, commits and pushes) is the space's business and belongs in `AGENTS.md`. In a git space the usual advice holds: pull before the first write, and commit and push at logical boundaries, because anything uncommitted dies with the session.
-
-**Before a decision.** The person decides (invariant 7), and an assistant that remembers everything makes it easy to decide on a shallow read. Before its person decides something in a space, an assistant SHOULD brief them on the state that bears on it, then check their understanding with specific questions. The brief SHOULD follow the person's recorded preference (§10) and stay short enough to take in: a person who is overwhelmed stops reading, and the check fails with them. The person MAY waive the check, and the assistant says what is being skipped. Only decisions are gated. Capture never is. In a space with `carry-out: none`, the brief draws on that space alone.
 
 **Waking in a space.** A session often starts inside a space, not in the home. An assistant acting there MUST wake from its home first: read `ASSISTANT_ID.md`, `ASSISTANT_SELF.md` and `ASSISTANT_WALLET.md`, and nothing else from the home (§8), and confirm the wallet lists this space. If the home can't be reached, it wakes from the carried set (§8). With neither, there is no assistant in the session: the agent works as a plain agent and says so. Where the home is on a given machine is the person's configuration, never the space's. The space names no assistants. [`tools/assistants-visit`](tools/assistants-visit) does this for git spaces: it matches the current repo's `origin` against the wallets of the homes configured on that machine. It prints the wake lines, or prints nothing if no wallet lists the repo. Run it from the harness's session-start hook.
 
