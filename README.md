@@ -27,7 +27,7 @@ An assistant uses agents as its medium, the same way a person does. Its name is 
 
 ## The rules
 
-Eleven principles, a two-minute read: [SPEC.md](SPEC.md).
+Ten principles, a two-minute read: [SPEC.md](SPEC.md).
 
 A visitor that names no one leaves no one responsible for what it did. A space with no single owner has the same problem. The rules make accountability part of the design, not a matter of discipline.
 
@@ -107,7 +107,7 @@ Name the assistant and the agent together: the assistant persists, and the agent
 
 ## Files
 
-- [SPEC.md](SPEC.md): the framework. Words, eleven principles, a two-minute read
+- [SPEC.md](SPEC.md): the framework. Words, ten principles, a two-minute read
 - [BINDING.md](BINDING.md): the reference binding, git and markdown: fields, files, formats. This was the spec through 0.5.0
 - [EXAMPLES.md](EXAMPLES.md): nine short stories of the spec in use. Start here
 - [UPGRADING.md](UPGRADING.md): moving a space or a home to the latest version, step by step

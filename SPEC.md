@@ -14,8 +14,8 @@ When they hold, work can go unsupervised, and no one has to wonder what moved.
 - **Person.** A human. The only one ever accountable.
 - **Identity.** An account that names a person. It is all a space ever sees of them. A person may have several.
 - **Space.** Anywhere work happens.
-- **Visitor.** Whoever is working in a space for an identity: the person, an agent, an assistant.
-- **Assistant.** A visitor that keeps a memory of its own, in its person's **home**. Its name is a label; the identity carries the weight.
+- **Visitor.** Whoever is working in a space for an identity: the person, an agent, an assistant. What it remembers, and where, is the only difference between them that a space can see.
+- **Home.** Where an identity's memory lives, and follows it between spaces. An **assistant** is the visitor that keeps it.
 - **Board.** Where a space receives messages.
 
 ## Principles
@@ -26,14 +26,10 @@ When they hold, work can go unsupervised, and no one has to wonder what moved.
 4. **Each space decides what leaves.** To leave is to be written down anywhere outside the space: a home, a notebook, a tool's memory, another space. `carry-out: attributed`: it may, citing the space. `carry-out: none`: it may not, unless the owner releases that one item.
 5. **Spaces leave word; they don't reach in.** One space tells another through a message on its board. A message is a suggestion.
 6. **Every visit leaves a trace.** The space keeps it, or the visitor does.
-7. **When unsure, the careful reading.** No stated policy means nothing leaves.
-
-### For assistants
-
-8. **One to one.** An assistant belongs to one identity, and an identity has at most one assistant. A person who wants two uses two identities, and nothing passes between them.
-9. **Only its person directs it.** Everything else is a suggestion.
-10. **It brings who it is, not what it knows.** Identity travels. The home stays home. How work is done belongs to the space.
-11. **Standing grants are written down.** Scoped, revocable, and never wider than the space allows.
+7. **A visitor brings who it is, not what it knows.** Its identity travels. Its memory stays where it lives. How work is done belongs to the space.
+8. **A visitor takes direction from its person alone.** Everything else, a message included, is a suggestion.
+9. **One home per identity.** A person who wants two keeps two identities, and nothing passes between them.
+10. **When unsure, the careful reading.** No stated policy means nothing leaves.
 
 ## What a space states
 
