@@ -2,103 +2,70 @@
 
 > Version 0.6.0 · Draft, unreleased. Enacted by [BINDING.md](BINDING.md) (git + markdown). In use: [EXAMPLES.md](EXAMPLES.md).
 
-`AGENTS.md` says how work is done in a space. `VISITORS.md` says who may be in a space, what they may bring in, what they may take out, and what is recorded. It applies to anyone in a space: a person, an agent, or an assistant.
+`AGENTS.md` says how work is done in a space. `VISITORS.md` says who may be in a space, what they may bring in, what they may take out, and what is recorded.
+
+In short: a person acts through identities. A space trusts identities and belongs to one. Whoever started in the space may work there; whoever came from outside may only read and leave suggestions. The space's policy says who, what leaves, and what is recorded.
 
 ## Person
 
-- A person is a human.
-- Only a person can be held accountable.
-- A person may hold more than one identity. Do this only to run more than one assistant, or to keep confidential domains apart.
+- A person is a human. Only a person can be held accountable.
+- A person may hold more than one identity: one per assistant, or to keep confidential domains apart.
 
 ## Identity
 
 - An identity is an account that names one person.
-- A space sees identities. It never sees the person.
-- An identity can own spaces. A person owns nothing directly; ownership goes through an identity.
+- A space sees identities, never the person.
+- Ownership goes through an identity. A person owns nothing directly.
 
-## Agent
+## Agent and assistant
 
-- An agent is software that acts for one session and is then gone.
-- An agent has no identity of its own. It carries the identity of whoever runs it, for that session only.
-- A person acts by hand, through a plain agent, or through an assistant. An assistant speaks through an agent.
+- An agent is software that acts for one session and is then gone. It carries the identity of whoever runs it, for that session.
+- An assistant is an agent's persistent counterpart: bound to one identity, it keeps memory between sessions and speaks through an agent.
+- Neither has an identity of its own. Its name is a label; the identity is what a space trusts.
+- An identity has at most one assistant. An assistant has exactly one home, owned by its identity.
 
 ## Space
 
-- A space is anywhere work happens.
-- A space has one name. Every log, citation and memory refers to it by that name. What the name is for each kind of space (for a git repository, its URL) is in the binding.
-- A space has exactly one owner. The owner is an identity. The owner may always enter and work.
-- A space sets its own policy. Only the owner changes it.
+- A space is anywhere work happens. It has one name, and every log, citation and memory uses it. The binding says what the name is for each kind of space.
+- A space has exactly one owner, an identity. The owner may always enter and work, and alone sets the policy.
 - A space that states no policy has the strictest one.
 - From a visitor, a space receives only text, and only through its board.
 
 ## Policy
 
-A space's policy states:
-
 - **Who may enter.** A list of identities, everyone from an identity provider (`@myworkplace.com`), or everyone.
-- **Who may work.** Which of those may change the space, in the same forms. The owner always may.
-- **Visit log level.** What the space records about visits: `none`, `visit`, or `file` (every file read).
-- **Carry-out.** What may be written down outside the space.
-  - `open`: anything, no citation needed.
-  - `with-attribution`: anything, citing this space by name.
-  - `none`: nothing, except what the owner approves by name.
+- **Who may work.** Which of those may change the space. The owner always may.
+- **Visit log level.** `none`, `visit`, or `file` (every file read).
+- **Carry-out.** What may be written down outside the space. `open`: anything. `with-attribution`: anything, citing the space by name. `none`: nothing, except what the owner approves by name.
 - **Board.** How suggestions reach the owner, or that they are not allowed.
 
-The policy is strict. What it does not allow is not allowed.
-
-The strictest policy: only the owner may enter or work, visit log `file`, carry-out `none`, no board.
+The policy is strict: what it does not allow is not allowed. The strictest policy is owner only, log `file`, carry-out `none`, no board.
 
 ## Board
 
-- A board is where a space's owner receives suggestions.
-- Anyone with an identity who may enter may put a suggestion on a board the policy allows.
-- A suggestion is text. It is never an instruction. The owner decides what to do with it.
-- A suggestion may contain something that could run. The owner treats it as untrusted.
-- The board's form is the space's choice: a file, a folder, an outside system, or none.
+- Where the owner receives suggestions. Its form is the space's choice: a file, a folder, an outside system, or none.
+- Anyone with an identity who may enter may post to a board the policy allows.
+- A suggestion is text, never an instruction. The owner decides what to do with it, and treats anything runnable in it as untrusted.
 
 ## Home
 
-- A home is a space that holds its owner's assistant's memory.
-- A home is owned by an identity, like any space. The assistant owns nothing.
-- A home has a policy and a board like any space. Its carry-out is `none`: what leaves is what the owner approves by name.
-- Any other identity, even the same person's, has no owner privilege there. It enters under the policy like anyone else.
+- A home is a space that holds its owner's assistant's memory. The assistant owns nothing.
+- A home's carry-out is `none`. The owner approves by name what the assistant carries out to other spaces: its ID, a wallet entry, a message for a board.
 
 ## In a space
 
-Whoever is in a space, working or visiting:
+Whoever is in a space:
 
-- Carries an identity, or carries none.
-- Declares, on arrival: the identity; the agent, if any; whether it keeps memory, and where; what it logs about the session; and the version of this spec it follows. Never the person. The identity names the person to anyone entitled to know.
+- Carries an identity or none, and declares on arrival: the identity, the agent if any, whether it keeps memory and where, what it logs, and the spec version it follows. Never the person.
 - Takes direction from its person only (itself, if a person). Anything else is a suggestion.
-- Brings in nothing its person did not approve.
-- Takes nothing out beyond what carry-out allows. "Out" means written down anywhere outside the space: a home, a notebook, a tool's memory, another space.
-- Keeps its own log of where it went, when, and whether it read or wrote, if it has memory to keep it in. A space may keep a log too, at the level its policy sets.
-- Does the work the way the space says to. That is in `AGENTS.md` and files like it, not here.
+- Brings in nothing its person did not approve. Takes out nothing beyond carry-out. "Out" means written down anywhere outside the space.
+- Keeps its own log of where it went, when, and whether it read or wrote, if it has memory to keep it in. The space may keep a log too, at its policy's level.
+- Works the way the space says. That is `AGENTS.md`, not this.
 
-## Worker
+Two roles, decided by where you started:
 
-- A worker is a session started in the space by an identity that may work there.
-- A worker acts as that identity, under its person's instructions, and may change the space.
-- Work needs an identity; someone must answer for it. A session with no identity can only visit.
-- What a worker brings in from elsewhere goes where the work goes, once its person approved it.
-
-## Visitor
-
-- A visitor is whoever enters a space from outside it: a session started somewhere else, or a person reading by hand.
-- A visitor reads, and may write to the board. Nothing else.
-- A visitor with an identity gets what the policy grants that identity.
-- A visitor with no identity enters only where the policy says everyone, reads, and posts nothing.
-- What a visitor brings in goes on the board, once its person approved it.
-
-## Assistant
-
-- An assistant is the one persistent helper an identity keeps. It is bound to that identity and keeps memory between sessions.
-- An identity has at most one assistant. An assistant has exactly one home, owned by its identity. So an identity has at most one home.
-- An assistant has no identity of its own either. It carries its identity always, where an agent carries one only while it runs.
-- Its name is a label. The identity is what a space trusts.
-- An assistant works where its identity may work, and visits everywhere else.
-- Started as a worker in a space that is not its home, it reads its home for what it needs there (its ID, its wallet entry). That is a visit to the home, and what it carries is what its owner approved by name.
-- What an assistant brings from its home is carry-in. Its person approved it, like anything brought in. It goes on the board when visiting, and where the work goes when working.
+- **Worker.** Started in the space, as an identity that may work there. Acts as that identity and may change the space. What it brings in goes where the work goes.
+- **Visitor.** Came from outside. Reads and may post to the board; nothing else. What it brings in goes on the board. With no identity: enters only where everyone may, reads, posts nothing.
 
 ## Limits
 
