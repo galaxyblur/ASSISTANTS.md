@@ -22,7 +22,7 @@
 - A space has one name. Every log, citation and memory refers to it by that name. What the name is for each kind of space (for a git repository, its URL) is in the binding.
 - A space has exactly one owner. The owner is an identity.
 - A space sets its own policy. Only the owner changes it.
-- The owner may approve one specific item that the policy would refuse, and writes down that they did. Nothing else overrides a policy.
+- The owner can let one named item out of a `none` space without loosening the policy for everyone. They approve that item and write down that they did.
 - A space that states no policy has the strictest one.
 - A space receives only text from outside, and only through its board.
 
@@ -59,11 +59,12 @@ The policy is strict. What it does not allow is not allowed.
 
 - A visitor is whoever is in a space, reading or writing: a person by hand, an agent, or an assistant.
 - A visitor carries an identity, or carries none.
-- A visitor with an identity declares, on arrival: the identity; the person it acts for; the agent, if any; whether it keeps memory, and where; what it logs about the visit; and the version of this spec it follows.
+- A visitor with an identity declares, on arrival: the identity; the agent, if any; whether it keeps memory, and where; what it logs about the visit; and the version of this spec it follows. Never the person. The identity names the person to anyone entitled to know.
 - A visitor with an identity gets what the policy grants that identity.
 - A visitor with no identity follows the strictest policy: read only, nothing in, nothing out.
 - A visitor keeps its own log of its visits: where, when, read or write. A space may keep a log too, at the level its policy sets.
 - A visitor brings nothing into a space that its person did not approve.
+- Can only write to the board (if kept inside the space)
 - A visitor takes nothing out beyond what carry-out allows. "Out" means written down anywhere outside the space: a home, a notebook, a tool's memory, another space.
 - A visitor takes direction from its person only. Anything else is a suggestion.
 - A visitor works the way the space says to. That is in `AGENTS.md` and files like it, not here.
