@@ -13,7 +13,7 @@ Who may be in a space, what they may bring in, what they may take out, and what 
 
 It applies to whoever is in the space: a person by hand, an agent, an assistant. It never says what work may be done. That is `AGENTS.md`.
 
-One rule does most of the work: where you started decides what you may do. A session started in a space, as a member, is a **worker** and may change it. A session that came from anywhere else is a **visitor**: it reads, and it may leave a message on the board. Nothing else.
+One rule does most of the work: where you started decides what you may do. A session started in a space, as a member, is a **worker** and may change it. Everyone else is a **visitor**: it reads, and it may leave a message on the board. Nothing else.
 
 New here? Read [SPEC.md](SPEC.md) (two minutes), then the [examples](EXAMPLES.md).
 
@@ -90,7 +90,7 @@ The prompt names neither the assistant nor the home, so it works unchanged for a
 
 **Upgrading.** In any space you own, or in your home, tell your agent: *adopt the latest VISITORS.md spec here.* [UPGRADING.md](UPGRADING.md) gives it the steps from each version to the next, the few questions it may ask, and the default for everything else. Only a space's owner changes its front desk; anyone else proposes through the board.
 
-**Requiring a version.** A space can set `min-spec: 0.5.0` in its front desk. An assistant that follows an older spec stays out, and its person's session goes on as a plain agent. `assistants: none` refuses every assistant.
+**Requiring a version.** A space can set `min-spec: 0.6.0` in its front desk. An assistant that follows an older spec stays out, and its person's session goes on as a plain agent. `assistants: none` refuses every assistant.
 
 **Showing who's working.** `assistants-visit --id [dir]` prints the resident's ID when `dir` is its home or a wallet space, and nothing anywhere else. Anything that labels a session can use it. For example, a Claude Code status line badge (`ADA`):
 
@@ -121,4 +121,4 @@ Name the assistant and the agent together: the assistant persists, and the agent
 
 ## Status
 
-v0.6.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [GIT.md §14](GIT.md#14-relation-to-existing-standards).
+v0.6.0 is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [GIT.md §14](GIT.md#14-relation-to-existing-standards).

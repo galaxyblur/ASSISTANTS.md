@@ -17,6 +17,8 @@ What the spec leaves open, what it can't do, and ideas for later versions.
 - **Upgrades across many spaces.** One instruction upgrades one space. Should a home be able to list which of its wallet spaces are behind, and offer the owner-only ones as board messages?
 - **Enforcing no bleed.** Invariant 8 keeps a space out of two of a person's wallets, but neither wallet can see the other. Who checks?
 - **Refreshing a carried set.** A carried set is a dated snapshot. How stale may it be before a session should refuse to wake from it?
+- **Where the home is, on record.** The visit record's `memory` field names the home, so every space a person visits learns where their notes live. Deliberate (the declaration rule), but a shared repo doesn't need the address. Option: allow `memory: private`, meaning "yes, elsewhere".
+- **"Started in", beyond git.** Worker or visitor turns on where a session started. A git checkout with a session hook makes that plain; a folder, a drive, a served API do not yet say what "started in" means.
 - **Beyond git.** Folder, drive, server, device and API spaces need concrete recording and chain formats. 0.5 lets such a space set `visit-log: none`, with the assistant recording at home, which is a floor and not a format.
 
 ## Limitations

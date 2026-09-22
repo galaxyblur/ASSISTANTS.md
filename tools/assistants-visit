@@ -17,8 +17,10 @@
 #         configured home exists on this machine.
 # Hook:   Claude Code SessionStart command:
 #         [ -x ~/.local/bin/assistants-visit ] && ~/.local/bin/assistants-visit "$CLAUDE_PROJECT_DIR" || true
-# Door:   if the space's VISITORS.md sets `min-spec` and the assistant's declared
-#         `visitors-spec` is older, prints why it stays out instead of waking it.
+# Door:   if the space's VISITORS.md sets `assistants: none`, or sets `min-spec` and the
+#         assistant's declared `visitors-spec` is older, prints why it stays out instead
+#         of waking it. Members are not checked: the wallet entry is the record that the
+#         space admitted the identity.
 # Reads:  each home's ASSISTANT_ID.md (`id`, `principal`) and ASSISTANT_WALLET.md
 #         (`spaces:` entries of `- repo:` / `role:`). A space or home not yet renamed
 #         (ASSISTANTS.md, `assistants-spec`) is still read.
@@ -75,8 +77,11 @@ too_old() {
   [ -n "$1" ] && [ "$(printf '%s\n%s\n' "$min" "$1" | sort -V | head -1)" = "$min" ] && return 1
   echo "$min"
 }
-stay_out() { # id version min
-  echo "No assistant here: this space requires VISITORS.md spec >= $3, and $1 follows ${2:-an undeclared version}."
+# True when the front desk refuses every assistant.
+refused() { [ "$(front assistants "$space_desk" 2>/dev/null)" = none ]; }
+stay_out() { # id version min (min empty: refused outright)
+  if [ -n "$3" ]; then echo "No assistant here: this space requires VISITORS.md spec >= $3, and $1 follows ${2:-an undeclared version}."
+  else echo "No assistant here: this space sets assistants: none."; fi
   echo "Work as a plain agent: carry the chain without an Assistant: line, and take nothing home. Tell your person that upgrading the home (\"adopt the latest VISITORS.md spec here\") would fix this."
 }
 
@@ -99,8 +104,8 @@ while IFS= read -r home; do
   [ -n "$id" ] && [ -f "$home/$wallet" ] || continue
   role=$(role_in "$home/$wallet")
   [ -n "$role" ] || continue
-  if [ "$role" != home ] && [ "$mode" != pack ] && min=$(too_old "$ver"); then
-    [ "$mode" = wake ] && stay_out "$id" "$ver" "$min"
+  if [ "$role" != home ] && [ "$mode" != pack ] && { refused || min=$(too_old "$ver"); }; then
+    [ "$mode" = wake ] && stay_out "$id" "$ver" "${min:-}"
     exit 0
   fi
   [ "$mode" = id ] && { echo "$id"; exit 0; }
@@ -130,7 +135,7 @@ for set in "$carry"/*/; do
   role=$(role_in "$entry")
   [ -n "$id" ] && [ -n "$role" ] || continue
   ver=$(spec_ver "${set}ASSISTANT_ID.md")
-  if min=$(too_old "$ver"); then [ "$mode" = wake ] && stay_out "$id" "$ver" "$min"; exit 0; fi
+  if refused || min=$(too_old "$ver"); then [ "$mode" = wake ] && stay_out "$id" "$ver" "${min:-}"; exit 0; fi
   [ "$mode" = id ] && { echo "$id"; exit 0; }
   pub=; [ -f "${set}ASSISTANT_SELF_PUBLIC.md" ] && pub=" and ${set}ASSISTANT_SELF_PUBLIC.md"
   wake_lines "$id" "$principal" "$role" "Home unreachable; carried set packed $(cat "${set}PACKED" 2>/dev/null)." \

@@ -1,6 +1,6 @@
 # VISITORS.md in git and markdown
 
-> Version 0.6.0 · Draft, unreleased · Does [SPEC.md](SPEC.md) with plain git and markdown files. (In standards talk: a binding.) Until 0.5.0 this text was the spec itself; section numbers are unchanged, so an older "SPEC §8" is §8 here.
+> Version 0.6.0 · Does [SPEC.md](SPEC.md) with plain git and markdown files. (In standards talk: a binding.) Until 0.5.0 this text was the spec itself; section numbers are unchanged, so an older "SPEC §8" is §8 here.
 
 One way to do the framework, with plain git and markdown. It is not the only way. Where this document and the framework disagree, the framework wins and this document has a bug.
 
@@ -32,7 +32,7 @@ The test for any rule: if it governs information crossing one of those boundarie
 - **Space.** Anything an agent can work in: a folder, a repository, a server, a device, a served API. A space has its own conventions and goals. It is either solo or shared.
 - **Owner.** The one identity accountable for a space. The owner sets its policy.
 - **Worker.** A session started in a space by an identity that may work there. It may change the space.
-- **Visitor.** Whoever enters a space from outside it: a session started somewhere else, or a person reading by hand. It reads, and may write to the board.
+- **Visitor.** Everyone else who may enter: a session started somewhere else, a person reading by hand, or a session started here by an identity that may enter but not work. It reads, and may write to the board.
 - **Home.** The space that holds an assistant's memory, marked by `ASSISTANT_ID.md` at its root (§10). Usually the person's own notes. The assistant's identity owns it; the assistant animates it and is not it.
 - **ID, wallet, self.** The three files that make a space a home (§10).
 - **Front desk.** A space's `VISITORS.md`.
@@ -49,7 +49,7 @@ The test for any rule: if it governs information crossing one of those boundarie
 
 1. Every identity MUST name exactly one person.
 2. Every chain MUST end at an identity. An action whose chain names none is **unattributed**.
-3. Nobody MUST claim an identity that does not name them.
+3. A session MUST NOT claim an identity that does not name its person.
 4. An identity has at most one assistant. An assistant MUST have exactly one home, owned by its identity, and a home MUST NOT house more than one assistant.
 5. Every space MUST have exactly one owner, and the owner MUST be an identity. This holds inside an organization too: a space no one person answers for is a space no one answers for.
 6. Whoever is in a space takes direction only from its own person. Anything from anyone else, other assistants included, is a suggestion.
@@ -110,7 +110,7 @@ A visit record is one JSON line. Its fields are the arrival declaration the fram
 - A session SHOULD write its record before it ends.
 - **Recorded at home.** When a space sets `visit-log: none`, has no front desk, or gives the visitor no write access, an assistant MUST record the visit in its own home. That record holds when, where and in what mode, and never what the space contained, so it is not carry-out.
 - In a solo space whose only member is the owner, the space's existing event log MAY serve as the visit record.
-- **Git history as the record.** A git space MAY set `visits: git`. Every commit already carries the chain (§5), so a worker's visit is recorded by its commits and writes nothing else. A visit that would commit nothing records itself with one empty commit carrying the chain. `visit-log: file` needs a record file, so it can't be combined with `visits: git`.
+- **Git history as the record.** A git space MAY set `visits: git`. Every commit already carries the chain (§5), so a worker's visit is recorded by its commits and writes nothing else. A visit that would commit nothing records itself with one empty commit carrying the chain; a visitor with no push access records it at home instead. `visit-log: file` needs a record file, so it can't be combined with `visits: git`.
 
 **Per-file reads** are logged only when the front desk requires it. The front desk states this before entry. A visitor that doesn't accept it MUST leave without reading.
 
@@ -140,7 +140,7 @@ carry-out: with-attribution   # open | with-attribution | none
 |---|---|
 | `owner` | the one identity accountable for this space (invariant 5). Always a member |
 | `members` | who may work here: identities that may change the space. The framework's *who may work* |
-| `visitors` | who may enter beyond members, read-only plus the board. `none`, a list, everyone from an issuer (`@corp.example`), or `any`. `any` admits a session with no identity, read-only. The framework's *who may enter* |
+| `visitors` | who may enter beyond members, read-only plus the board. `none`, a list, everyone from an issuer (`@corp.example`, which must be in `issuers`), or `any`. `any` admits a session with no identity, read-only. The framework's *who may enter* |
 | `issuers` | issuers this space trusts to vouch for identities |
 | `assistants` | `allowed`: members and visitors may come through their assistant. `none`: no session that remembers; plain agents only |
 | `min-spec` | optional. An assistant whose `ASSISTANT_ID.md` declares an older `visitors-spec` does not enter as an assistant (see *Versions*) |
@@ -261,7 +261,7 @@ An agent session is mortal, and what it doesn't write down is lost. Two duties f
 
 *How* a session saves its work (when it pulls, commits and pushes) is the space's business and belongs in `AGENTS.md`. In a git space the usual advice holds: pull before the first write, and commit and push at logical boundaries, because anything uncommitted dies with the session.
 
-**Waking in a space.** A session started inside a space, by an identity that may work there, is a worker. An assistant acting there MUST wake from its home first: read `ASSISTANT_ID.md`, `ASSISTANT_SELF.md` and `ASSISTANT_WALLET.md`, and nothing else from the home (§8), and confirm the wallet lists this space. If the home can't be reached, it wakes from the carried set (§8). With neither, there is no assistant in the session: the agent works as a plain agent and says so. Where the home is on a given machine is the person's configuration, never the space's. The space names no assistants. [`tools/assistants-visit`](tools/assistants-visit) does this for git spaces: it matches the current repo's `origin` against the wallets of the homes configured on that machine. It prints the wake lines, or prints nothing if no wallet lists the repo. Run it from the harness's session-start hook.
+**Waking in a space.** A session started inside a space, by an identity that may work there, is a worker. An assistant acting there MUST wake from its home first: read `ASSISTANT_ID.md`, `ASSISTANT_SELF.md` and `ASSISTANT_WALLET.md`, and nothing else from the home (§8), and confirm the wallet lists this space. If the home can't be reached, it wakes from the carried set (§8). With neither, there is no assistant in the session: the agent works as a plain agent and says so. Where the home is on a given machine is the person's configuration, never the space's. The space names no assistants. [`tools/assistants-visit`](tools/assistants-visit) does this for git spaces: it matches the current repo's `origin` against the wallets of the homes configured on that machine, then checks the front desk's `assistants` and `min-spec`. It prints the wake lines, or why it stays out, or nothing if no wallet lists the repo. It does not check `members`; the wallet entry is the record that the space admitted the identity. Run it from the harness's session-start hook.
 
 **Visiting from the home.** The reverse also happens: a session starts in the home and walks into a space. It is a visitor there (invariant 7): it reads, and it may leave a board message. It changes nothing else, whatever the home's instructions say and whatever the person's role in the space. Anything the home session wants changed goes on the space's board, and a session started in the space does the work, with the space's `AGENTS.md`, skills and hooks loaded. Identity travels with the assistant; conventions belong to the space.
 

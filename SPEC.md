@@ -1,10 +1,10 @@
 # VISITORS.md
 
-> Version 0.6.0 · Draft, unreleased. Done in git and markdown: [GIT.md](GIT.md). In use: [EXAMPLES.md](EXAMPLES.md).
+> Version 0.6.0. Done in git and markdown: [GIT.md](GIT.md). In use: [EXAMPLES.md](EXAMPLES.md).
 
 `AGENTS.md` says how work is done in a space. `VISITORS.md` says who may be in a space, what they may bring in, what they may take out, and what is recorded.
 
-In short: a person acts through identities. A space trusts identities and belongs to one. Whoever started in the space may work there; whoever came from outside may only read and leave suggestions. The space's policy says who, what leaves, and what is recorded.
+In short: a person acts through identities. A space trusts identities and belongs to one. Whoever started in the space as a member may work there; everyone else may only read and leave suggestions. The space's policy says who, what leaves, and what is recorded.
 
 ## Person
 
@@ -26,7 +26,7 @@ In short: a person acts through identities. A space trusts identities and belong
 
 ## Space
 
-- A space is anywhere work happens. It has one name, and every log, citation and memory uses it. The binding says what the name is for each kind of space.
+- A space is anywhere work happens. It has one name, and every log, citation and memory uses it. GIT.md says what the name is for each kind of space.
 - Space to owner is many-to-1, and the owner is an identity. The owner may always enter and work, and alone sets the policy.
 - A space that states no policy has the strictest one.
 - From a visitor, a space receives only text, and only through its board.
@@ -65,7 +65,7 @@ Whoever is in a space:
 Two roles, decided by where you started:
 
 - **Worker.** Started in the space, as an identity that may work there. Acts as that identity and may change the space. What it brings in goes where the work goes.
-- **Visitor.** Came from outside. Reads and may post to the board; nothing else. What it brings in goes on the board. With no identity: enters only where everyone may, reads, posts nothing.
+- **Visitor.** Everyone else who may enter: came from outside, or started here without being a member. Reads and may post to the board; nothing else. What it brings in goes on the board. With no identity: enters only where everyone may, reads, posts nothing.
 
 ## Limits
 

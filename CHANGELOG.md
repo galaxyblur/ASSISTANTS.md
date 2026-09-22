@@ -2,7 +2,7 @@
 
 Follows [Semantic Versioning](https://semver.org/).
 
-## Unreleased
+## 0.6.0 (2026-09-22)
 
 **Renamed: `VISITORS.md`.** The file every space carries is now `VISITORS.md`, its pin key `visitors-spec`, and the repo `galaxyblur/VISITORS.md`. The subject is whoever is in a space, so the name says so. The `ASSISTANT_*` home files keep their names: they are about an assistant. `templates/VISITORS.md` and `templates/VISITORS.home.md` replace the old templates. `assistants-visit` keeps its name (it wakes assistants), reads the new names, still reads the old ones, and no longer reads the pre-0.5 `resident` block. Entries below keep the old name.
 
@@ -19,6 +19,8 @@ Follows [Semantic Versioning](https://semver.org/).
 **Removed: the understanding check** (0.4.0's invariant 7 and §11 *Before a decision*). Briefing a person before they decide is one person's practice with their own assistant. It belongs in that person's `ASSISTANT_SELF.md`. Standing grants also leave the framework: they are about work. `GIT.md` keeps both. Taken out of the framework and kept in `GIT.md`: the chain as a word, "whether assistants may enter" as something a space states, and "two rules in conflict means stop and ask".
 
 **Removed: idiocorpus and idiocortex.** "Home" was doing all the work; the coinages named a knowledge space with and without an assistant, which no rule depends on. Entries below keep them.
+
+**`assistants-visit`** now refuses at the door under `assistants: none` as well as `min-spec`. It does not check `members`; the wallet entry is the record that the space admitted the identity.
 
 **Upgrading 0.5 → 0.6** (`UPGRADING.md`): rename the file and key, move fields to their new names with no change of policy, and report that sessions started elsewhere are visitors now. New Example 10: a visit from home.
 
