@@ -19,22 +19,23 @@
 ## Space
 
 - A space is anywhere work happens.
+- A space has one name. Every log, citation and memory refers to it by that name. What the name is for each kind of space (for a git repository, its URL) is in the binding.
 - A space has exactly one owner. The owner is an identity.
 - A space sets its own policy. Only the owner changes it.
-- The owner may allow one thing the policy does not. The owner does this in writing, in the space, so it is on record. That is the only kind of exception.
+- The owner may approve one specific item that the policy would refuse, and writes down that they did. Nothing else overrides a policy.
 - A space that states no policy has the strictest one.
-- A space receives from outside only through its board.
+- A space receives only text from outside, and only through its board.
 
 ## Policy
 
 A space's policy states:
 
-- **Who may enter.** A list of identities.
+- **Who may enter.** A list of identities, everyone from an identity provider (`@myworkplace.com`), or everyone.
 - **Visit log level.** What the space records about visits: `none`, `visit`, or `file` (every file read).
 - **Carry-out.** What may be written down outside the space afterwards.
   - `open`: anything, no citation needed.
   - `with-attribution`: anything, citing this space.
-  - `none`: nothing, unless the owner allows that one item as an exception.
+  - `none`: nothing, unless the owner approves that one item and writes down that they did.
 - **Board.** How suggestions may be shared with the owner, or that they are not allowed.
 
 The policy is strict. What it does not allow is not allowed.
@@ -56,8 +57,9 @@ The policy is strict. What it does not allow is not allowed.
 
 ## Visitor
 
-- A visitor is whoever is working in a space: a person by hand, an agent, or an assistant.
+- A visitor is whoever is in a space, reading or writing: a person by hand, an agent, or an assistant.
 - A visitor carries an identity, or carries none.
+- A visitor with an identity declares, on arrival: the identity; the person it acts for; the agent, if any; whether it keeps memory, and where; what it logs about the visit; and the version of this spec it follows.
 - A visitor with an identity gets what the policy grants that identity.
 - A visitor with no identity follows the strictest policy: read only, nothing in, nothing out.
 - A visitor keeps its own log of its visits: where, when, read or write. A space may keep a log too, at the level its policy sets.
