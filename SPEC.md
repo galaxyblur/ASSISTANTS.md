@@ -9,25 +9,25 @@ In short: a person acts through identities. A space trusts identities and belong
 ## Person
 
 - A person is a human. Only a person can be held accountable.
-- A person may hold more than one identity: one per assistant, or to keep confidential domains apart.
+- Person to identity is 1-to-many. Hold more than one only to run more than one assistant, or to keep confidential domains apart.
 
 ## Identity
 
 - An identity is an account that names one person.
 - A space sees identities, never the person.
-- Ownership goes through an identity. A person owns nothing directly.
+- Identity to owned space is 1-to-many. A person owns nothing directly.
 
 ## Agent and assistant
 
 - An agent is software that acts for one session and is then gone. It carries the identity of whoever runs it, for that session.
 - An assistant is an agent's persistent counterpart: bound to one identity, it keeps memory between sessions and speaks through an agent.
 - Neither has an identity of its own. Its name is a label; the identity is what a space trusts.
-- An identity has at most one assistant. An assistant has exactly one home, owned by its identity.
+- Identity to assistant is 1-to-1, and optional: an identity may have none. Assistant to home is 1-to-1, and the identity owns the home.
 
 ## Space
 
 - A space is anywhere work happens. It has one name, and every log, citation and memory uses it. The binding says what the name is for each kind of space.
-- A space has exactly one owner, an identity. The owner may always enter and work, and alone sets the policy.
+- Space to owner is many-to-1, and the owner is an identity. The owner may always enter and work, and alone sets the policy.
 - A space that states no policy has the strictest one.
 - From a visitor, a space receives only text, and only through its board.
 
