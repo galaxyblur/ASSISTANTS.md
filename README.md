@@ -33,9 +33,9 @@ Plain statements, grouped by entity, a two-minute read: [SPEC.md](SPEC.md).
 
 A visitor that names no one leaves no one responsible for what it did. A space with no single owner has the same problem. The rules make accountability part of the design, not a matter of discipline.
 
-## Idiocorpus, idiocortex, home
+## Home
 
-A person's own knowledge space is an **idiocorpus**: *idio-* (one's own, as in idiolect) plus *corpus* (a body of texts). Its purpose is knowledge, not a project with some other goal. When an assistant lives there it is an **idiocortex**, and it is that assistant's **home**. The assistant animates the corpus; it is not the corpus.
+An assistant's memory lives in one space, its home: usually the person's own notes. The assistant animates the space; it is not the space.
 
 A home is marked by files at its root, with fixed names so any agent can tell by looking:
 

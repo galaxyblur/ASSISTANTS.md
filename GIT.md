@@ -33,10 +33,8 @@ The test for any rule: if it governs information crossing one of those boundarie
 - **Owner.** The one identity accountable for a space. The owner sets its policy.
 - **Worker.** A session started in a space by an identity that may work there. It may change the space.
 - **Visitor.** Whoever enters a space from outside it: a session started somewhere else, or a person reading by hand. It reads, and may write to the board.
-- **Idiocorpus.** A person's own knowledge space. Its purpose is knowledge, not a project with some other goal. From *idio-* (one's own, as in idiolect) and *corpus* (a body of texts).
-- **Idiocortex.** An idiocorpus with a resident assistant, marked by `ASSISTANT_ID.md` at its root (§10). The assistant animates the corpus; it is not the corpus.
-- **Home.** The role an idiocortex plays for its assistant. The assistant's identity owns it.
-- **ID, wallet, self.** The three files that make an idiocorpus a home (§10).
+- **Home.** The space that holds an assistant's memory, marked by `ASSISTANT_ID.md` at its root (§10). Usually the person's own notes. The assistant's identity owns it; the assistant animates it and is not it.
+- **ID, wallet, self.** The three files that make a space a home (§10).
 - **Front desk.** A space's `VISITORS.md`.
 - **Chain.** The record of who acted for whom: identity → assistant (if any) → agent.
 - **Visit.** One session's presence in a space, working or visiting.
@@ -204,7 +202,7 @@ Four flows cross a space's edge. Each has a gate.
 
 ## 10. The home
 
-A person's knowledge space is an idiocorpus. It becomes an idiocortex, and an assistant's home, when three files sit at its root:
+A space becomes an assistant's home when three files sit at its root:
 
 | File | Holds | Travels? |
 |---|---|---|

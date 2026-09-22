@@ -10,7 +10,7 @@ Each story says what someone wanted, what they set up, and what then happens.
 
 **Wants:** Alice keeps years of notes in a folder. She wants an assistant that remembers how she works and what it has told her before.
 
-**Has:** an idiocorpus. Her own knowledge space, nobody living in it.
+**Has:** a folder of notes. Her own space, nobody living in it.
 
 **Does:** adds a front desk from [the home template](templates/VISITORS.home.md), then three files at the root:
 
@@ -23,7 +23,7 @@ notes/
 └── ASSISTANT_WALLET.md   one space: this one, role: home
 ```
 
-**Then:** the folder is an idiocortex, and it is Ada's home. Any agent that opens it reads the ID file and knows whose assistant it is speaking as. Next month Alice swaps her agent for another vendor's. Ada is unchanged: same ID, same self, same record.
+**Then:** the folder is Ada's home. Any agent that opens it reads the ID file and knows whose assistant it is speaking as. Next month Alice swaps her agent for another vendor's. Ada is unchanged: same ID, same self, same record.
 
 ---
 
@@ -81,7 +81,7 @@ In a repo Alice didn't own, the same idea would go to the owner's board first, a
 
 **Wants:** Alice's employer lets staff use assistants in company repos. Alice wants help at work. She does not want her personal life at work, or the company's code in her notes.
 
-**Does:** sets up a second idiocortex on her work account, with its own assistant: `ada+alice@corp.example`. Different identity, different home, different wallet.
+**Does:** sets up a second home on her work account, with its own assistant: `ada+alice@corp.example`. Different identity, different home, different wallet.
 
 **Then:** the two never meet. No space is in both wallets, and no board message crosses. The spec calls these compartments. It doesn't link the two Alices; that would be her choice, and she doesn't make it.
 
