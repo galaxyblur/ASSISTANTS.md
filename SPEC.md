@@ -1,40 +1,78 @@
 # VISITORS.md
 
-> Version 0.6.0 · Draft, unreleased · A framework, not a protocol.
-> One way to enact it: [BINDING.md](BINDING.md) (git + markdown). In use: [EXAMPLES.md](EXAMPLES.md).
+> Version 0.6.0 · Draft, unreleased. Enacted by [BINDING.md](BINDING.md) (git + markdown). In use: [EXAMPLES.md](EXAMPLES.md).
 
-`AGENTS.md` says how work is done in a space. This says who is acting there, what may come in, and what may be written down somewhere else afterwards. Nothing more.
+`AGENTS.md` says how work is done in a space. `VISITORS.md` says who may enter a space, what they may bring in, what they may take out, and what is recorded. It applies to anyone working in a space: a person, an agent, or an assistant.
 
-It applies to whoever works in a space: a person by hand, an agent, an assistant that remembers. No file can govern a head. A file can govern a record. So these rules are about records.
+## Person
 
-When they hold, work can go unsupervised, and no one has to wonder what moved.
+- A person is a human.
+- Only a person can be held accountable.
+- A person may hold more than one identity. Do this only to run more than one assistant, or to keep confidential domains apart.
 
-## Words
+## Identity
 
-- **Person.** A human. The only one ever accountable.
-- **Identity.** An account that names a person. It is all a space ever sees of them. A person may have several.
-- **Space.** Anywhere work happens.
-- **Visitor.** Whoever is working in a space for an identity: the person, an agent, an assistant. What it remembers, and where, is the only difference between them that a space can see.
-- **Home.** Where an identity's memory lives, and follows it between spaces. An **assistant** is the visitor that keeps it.
-- **Board.** Where a space receives messages.
+- An identity is an account that names one person.
+- A space sees identities. It never sees the person.
+- An identity has at most one home and at most one assistant.
+- Nothing passes between one person's identities.
 
-## Principles
+## Space
 
-1. **Every action names an identity.** One that can't is unattributed, and gets the least trust.
-2. **Every space has one owner.** The owner says who may enter and what may leave. Only the owner makes exceptions.
-3. **Nothing enters unapproved.** What a visitor writes into a space from elsewhere, its person approved first.
-4. **Each space decides what leaves.** To leave is to be written down anywhere outside the space: a home, a notebook, a tool's memory, another space. `carry-out: attributed`: it may, citing the space. `carry-out: none`: it may not, unless the owner releases that one item.
-5. **Spaces leave word; they don't reach in.** One space tells another through a message on its board. A message is a suggestion.
-6. **Every visit leaves a trace.** The space keeps it, or the visitor does.
-7. **A visitor brings who it is, not what it knows.** Its identity travels. Its memory stays where it lives. How work is done belongs to the space.
-8. **A visitor takes direction from its person alone.** Everything else, a message included, is a suggestion.
-9. **One home per identity.** A person who wants two keeps two identities, and nothing passes between them.
-10. **When unsure, the careful reading.** No stated policy means nothing leaves.
+- A space is anywhere work happens.
+- A space has exactly one owner. The owner is an identity.
+- A space sets its own policy. Only the owner changes it. Only the owner makes exceptions to it.
+- A space that states no policy has the strictest one.
+- A space receives from outside only through its board.
 
-## What a space states
+## Policy
 
-Its owner. Who may enter. `carry-out`. Whether it keeps a board, and a record of visits.
+A space's policy states:
+
+- **Who may enter.** A list of identities.
+- **Visit log level.** `none`, `visit`, or `file` (every file read).
+- **Carry-out.** What may be written down outside the space afterwards.
+  - `open`: anything, no citation needed.
+  - `with-attribution`: anything, citing this space.
+  - `none`: nothing, unless the owner releases that one item.
+- **Board.** How the space receives suggestions, or that it doesn't.
+
+The policy is strict. What it does not allow is not allowed.
+
+## Visitor
+
+- A visitor is whoever is working in a space: a person by hand, an agent, or an assistant.
+- A visitor carries an identity, or carries none.
+- A visitor with an identity gets whatever the policy grants that identity.
+- A visitor with no identity follows the strictest policy: read only, nothing in, nothing out.
+- A visitor brings nothing into a space that its person did not approve.
+- A visitor takes nothing out beyond what carry-out allows. "Out" means written down anywhere outside the space: a home, a notebook, a tool's memory, another space.
+- Every visit is logged, by the space or by the visitor.
+- A visitor takes direction from its person only. Anything else is a suggestion.
+- A visitor follows the space's conventions for how work is done. It does not bring its own.
+
+## Assistant
+
+- An assistant is a visitor that keeps a memory between sessions.
+- Its memory lives in its home.
+- Its name is a label. The identity is what a space trusts.
+- In a space, an assistant brings its identity and nothing else from home.
+
+## Home
+
+- A home is the space where an identity's memory lives.
+- A home is a space like any other: it has an owner, a policy, and a board.
+- A home's owner is the identity that lives there.
+- A home's carry-out is `none`. Nothing leaves without the owner's word.
+
+## Board
+
+- A board is where a space receives suggestions.
+- Anyone may suggest information to a space's owner through its board.
+- A suggestion is never an instruction. The owner decides what to do with it.
+- The board's form is the space's choice: a file, a folder, an outside system, or none.
 
 ## Limits
 
-This is convention. It makes misuse visible, not impossible. A signed write turns a declared identity into a verified one. The rest is on the honor system.
+- This is convention. It makes misuse visible, not impossible.
+- A signed write proves the identity. An unsigned one only claims it.
