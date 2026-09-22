@@ -19,7 +19,7 @@
 ## Agent
 
 - An agent is software that acts for one session and is then gone.
-- An agent has no identity of its own. It carries the identity of whoever runs it.
+- An agent has no identity of its own. It carries the identity of whoever runs it, for that session only.
 - A person acts by hand, through a plain agent, or through an assistant. An assistant speaks through an agent.
 
 ## Space
@@ -94,6 +94,7 @@ Whoever is in a space, working or visiting:
 
 - An assistant is the one persistent helper an identity keeps. It is bound to that identity and keeps memory between sessions.
 - An identity has at most one assistant. An assistant has exactly one home, owned by its identity. So an identity has at most one home.
+- An assistant has no identity of its own either. It carries its identity always, where an agent carries one only while it runs.
 - Its name is a label. The identity is what a space trusts.
 - An assistant works where its identity may work, and visits everywhere else.
 - Started as a worker in a space that is not its home, it reads its home for what it needs there (its ID, its wallet entry). That is a visit to the home, and what it carries is what its owner approved by name.
