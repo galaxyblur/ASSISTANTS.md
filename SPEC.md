@@ -1,6 +1,6 @@
 # VISITORS.md
 
-> Version 0.6.0 · Draft, unreleased. Enacted by [BINDING.md](BINDING.md) (git + markdown). In use: [EXAMPLES.md](EXAMPLES.md).
+> Version 0.6.0 · Draft, unreleased. Done in git and markdown: [GIT.md](GIT.md). In use: [EXAMPLES.md](EXAMPLES.md).
 
 `AGENTS.md` says how work is done in a space. `VISITORS.md` says who may be in a space, what they may bring in, what they may take out, and what is recorded.
 

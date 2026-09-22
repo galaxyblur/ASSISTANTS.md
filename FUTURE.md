@@ -5,19 +5,19 @@ What the spec leaves open, what it can't do, and ideas for later versions.
 ## Open questions
 
 - **Enforcing the home boundary.** The spec relies on instruction, plus deny rules on the harness's file tools where they exist. Shell access still reaches the home. Does a visiting session need a sandbox, or a home that serves only its ID, self and wallet? The carried set (0.5) is a partial answer: a session that has only the carried set can't reach the rest.
-- **Organizations as principals.** Can a chain end at a company, which is a legal person but not a natural one? Current lean: no. Organizations hold spaces, each of which still has one person as its owner (invariant 8), every agent acting "for the company" names the employee who launched it, and a company's work goes through its people.
+- **Organizations as principals.** Can a chain end at a company, which is a legal person but not a natural one? Current lean: no. Organizations hold spaces, each of which still has one identity as its owner (invariant 5), every agent acting "for the company" names the employee who launched it, and a company's work goes through its people.
 - **Resolvable IDs.** `ada+alice@github.com` has valid `acct:` syntax, but nothing resolves it. Options: WebFinger on a domain the person controls, a static file on GitHub Pages, or a registry. Should a person's handle be issuer-scoped (`@github.com`) or domain-scoped (`@alice.example`)?
 - **Assurance levels.** The spec accepts platform accounts (roughly NIST SP 800-63 IAL1). How should a space require more? Candidates: W3C Verifiable Credentials, the EU Digital Identity Wallet, government eID. The catch is that stronger assurance costs pseudonymity.
 - **HDP.** Build on the Human Delegation Provenance protocol, or only borrow its model (signed append-only hops, offline verification)? It is recent and single-author.
 - **Board vs issue trackers.** Should the file board replace issue trackers for members and leave issues to outsiders, or should the two stay separate? In use so far: the board for everything between a person's own spaces, issues left to outsiders.
 - **Cross-space awareness.** Should an assistant, when it wakes at home, scan every wallet space's board and report counts? It's cheap for a few spaces and slow for many.
 - **Standing-permission format.** 0.5 adds `scope`. Still open: a revocation record, and whether `expires` should be enforced by tools.
-- **An owner who can't be reached.** Invariant 8 names one owner. What should a visitor do in a space whose owner has left or can't be found: treat it as `assistants: none`, or as having no front desk? Orphaned spaces are common in organizations.
+- **An owner who can't be reached.** Invariant 5 names one owner. What should a visitor do in a space whose owner has left or can't be found: treat it as `assistants: none`, or as having no front desk? Orphaned spaces are common in organizations.
 - **Version negotiation.** 0.5 adds `min-spec`, per-field defaults for older front desks (UPGRADING.md), and "read an unknown field carefully" for newer ones. Still open: should the chain record the spec version an assistant followed, so a space's history shows it? Should a space be able to set a maximum?
 - **Upgrades across many spaces.** One instruction upgrades one space. Should a home be able to list which of its wallet spaces are behind, and offer the owner-only ones as board messages?
-- **Enforcing no bleed.** Invariant 10 keeps a space out of two of a person's wallets, but neither wallet can see the other. Who checks?
+- **Enforcing no bleed.** Invariant 8 keeps a space out of two of a person's wallets, but neither wallet can see the other. Who checks?
 - **Refreshing a carried set.** A carried set is a dated snapshot. How stale may it be before a session should refuse to wake from it?
-- **Non-git bindings.** Folder, drive, server, device and API spaces need concrete recording and chain formats. 0.5 lets such a space set `visits: none`, with the assistant recording at home, which is a floor and not a format.
+- **Beyond git.** Folder, drive, server, device and API spaces need concrete recording and chain formats. 0.5 lets such a space set `visit-log: none`, with the assistant recording at home, which is a floor and not a format.
 
 ## Limitations
 

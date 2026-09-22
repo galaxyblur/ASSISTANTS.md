@@ -1,17 +1,19 @@
 # VISITORS.md
 
-Who is acting in a space, what may come in, and what may be written down somewhere else afterwards.
+Who may be in a space, what they may bring in, what they may take out, and what is recorded.
 
 `AGENTS.md` tells any agent how to work in a space. It says nothing about who the agent is working for, or what happens to what it saw. That used to be fine. Now people work through tools that remember, and through assistants with a name and a memory that move between the places a person works.
 
 `VISITORS.md` sits next to `AGENTS.md` and answers four questions:
 
 - Who is acting here, and who owns this space?
-- What may a visitor bring in?
-- What may be written down outside this space afterwards?
+- What may be brought in, and by whom?
+- What may be written down outside this space?
 - How do spaces leave word for each other?
 
-It applies to whoever works in the space: a person by hand, an agent, an assistant. It never says what work may be done. That is `AGENTS.md`.
+It applies to whoever is in the space: a person by hand, an agent, an assistant. It never says what work may be done. That is `AGENTS.md`.
+
+One rule does most of the work: where you started decides what you may do. A session started in a space, as a member, is a **worker** and may change it. A session that came from anywhere else is a **visitor**: it reads, and it may leave a message on the board. Nothing else.
 
 New here? Read [SPEC.md](SPEC.md) (two minutes), then the [examples](EXAMPLES.md).
 
@@ -20,10 +22,10 @@ New here? Read [SPEC.md](SPEC.md) (two minutes), then the [examples](EXAMPLES.md
 | | Agent | Assistant |
 |---|---|---|
 | Lifespan | one session | persistent; dormant between sessions |
-| Memory | whatever its harness keeps | its own, kept in its person's home |
-| Belongs to | whoever launched it | exactly one identity, by design |
+| Memory | whatever its harness keeps | its own, kept in its home |
+| Identity | whoever launched it, for that session | exactly one, always |
 
-An assistant uses agents as its medium, the same way a person does. Its name is a label. The identity behind it carries the weight.
+Neither has an identity of its own. An assistant uses agents as its medium, the same way a person does. Its name is a label. The identity behind it carries the weight.
 
 ## The rules
 
@@ -52,7 +54,7 @@ A home is marked by files at its root, with fixed names so any agent can tell by
 
 1. Copy [`templates/VISITORS.md`](templates/VISITORS.md) to the root and fill in the owner and the members.
 2. Add this line to `AGENTS.md`: `Whoever works here for a person: read VISITORS.md.`
-3. Create `visits/` and `board/`. In a git repo you can set `visits: git` instead of keeping `visits/`: commits carrying the chain are the record. A space that wants neither sets `visits: none` or `board: none`; a visiting assistant then records its visit in its own home.
+3. Create `visits/` and `board/`. In a git repo you can set `visits: git` instead of keeping `visits/`: commits carrying the chain are the record. A space that wants neither sets `visit-log: none` or `board: none`; an assistant then records its visit in its own home.
 
 People without an assistant work there with a plain agent. That's full participation.
 
@@ -69,21 +71,22 @@ People without an assistant work there with a plain agent. That's full participa
 ```text
 Make <repo path or URL> one of your spaces.
 
-1. If it already has an VISITORS.md, read it. If it allows assistants and
-   lists me as a member, add it to your wallet and stop. Its house rules win.
+1. If it already has a VISITORS.md, read it. If it allows assistants and
+   lists me as a member or visitor, add it to your wallet and stop. Its
+   house rules win.
 2. Otherwise, take inventory of it before you change anything: agent guide,
    commit conventions, hooks, remote visibility, third-party data, and who
    else works there.
 3. Ask me at most 3 questions: owner and members, whether assistants are
    allowed, and carry-out.
-4. In that repo, add the front desk from the spec's templates/VISITORS.md,
-   pinned to the latest version. Add the pointer line to its AGENTS.md,
-   creating the file if it's missing. Choose a visit record that fits the
-   repo, and commit there with the chain.
+4. Draft the front desk from the spec's templates/VISITORS.md, pinned to
+   the latest version, and the pointer line for its AGENTS.md. You are a
+   visitor there, so leave both on its board (or hand them to me if it has
+   none). I'll apply them from a session started in that repo.
 5. At home, add the repo to your wallet with its role and log the adoption.
 ```
 
-The prompt names neither the assistant nor the home, so it works unchanged for any assistant. Step 1 covers spaces you don't own: the space's front desk decides whether your assistant may enter, and the wallet only records that it can.
+The prompt names neither the assistant nor the home, so it works unchanged for any assistant. Step 1 covers spaces you don't own: the space's front desk decides whether your assistant may enter, and the wallet only records that it can. Step 4 is the worker rule in practice: a home session drafts, a session in the space writes.
 
 **Upgrading.** In any space you own, or in your home, tell your agent: *adopt the latest VISITORS.md spec here.* [UPGRADING.md](UPGRADING.md) gives it the steps from each version to the next, the few questions it may ask, and the default for everything else. Only a space's owner changes its front desk; anyone else proposes through the board.
 
@@ -108,8 +111,8 @@ Name the assistant and the agent together: the assistant persists, and the agent
 ## Files
 
 - [SPEC.md](SPEC.md): the framework. Person, identity, agent and assistant, space, policy, board, home, worker and visitor. A two-minute read
-- [BINDING.md](BINDING.md): the reference binding, git and markdown: fields, files, formats. This was the spec through 0.5.0
-- [EXAMPLES.md](EXAMPLES.md): nine short stories of the spec in use. Start here
+- [GIT.md](GIT.md): the spec done in git and markdown: fields, files, formats. This was the spec through 0.5.0
+- [EXAMPLES.md](EXAMPLES.md): ten short stories of the spec in use. Start here
 - [UPGRADING.md](UPGRADING.md): moving a space or a home to the latest version, step by step
 - [FUTURE.md](FUTURE.md): open questions, limitations, ideas
 - [templates/](templates/): front desks, the home files (ID, wallet, self, public self), board message
@@ -118,4 +121,4 @@ Name the assistant and the agent together: the assistant persists, and the agent
 
 ## Status
 
-v0.5.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [BINDING.md §14](BINDING.md#14-relation-to-existing-standards).
+v0.6.0 is a draft, and this version is meant to be usable today with plain git and markdown. It borrows from OAuth token exchange (RFC 8693), A2A, W3C PROV, and git commit signing, and cites each of them in [GIT.md §14](GIT.md#14-relation-to-existing-standards).
