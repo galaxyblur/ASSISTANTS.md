@@ -107,7 +107,7 @@ Name the assistant and the agent together: the assistant persists, and the agent
 
 ## Files
 
-- [SPEC.md](SPEC.md): the framework. Person, identity, space, policy, visitor, assistant, home, board. A two-minute read
+- [SPEC.md](SPEC.md): the framework. Person, identity, space, policy, board, home, visitor, assistant. A two-minute read
 - [BINDING.md](BINDING.md): the reference binding, git and markdown: fields, files, formats. This was the spec through 0.5.0
 - [EXAMPLES.md](EXAMPLES.md): nine short stories of the spec in use. Start here
 - [UPGRADING.md](UPGRADING.md): moving a space or a home to the latest version, step by step
