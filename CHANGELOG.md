@@ -12,7 +12,7 @@ Follows [Semantic Versioning](https://semver.org/).
 
 **Identity** is a new word: the account that names a person, and all a space ever sees. An assistant is bound to one identity and an identity has at most one assistant, so a member-list line admits exactly one assistant and compartments are separate identities. This closes a hole where two assistants of one person could both enter a space as that person. The binding's invariants 3, 5 and 10 still describe the older model. Principle 3 now says outright that a policy is the owner's to make exceptions to.
 
-**Carry-out has no assumed destination.** It was defined as space → home, while §8 also used it to gate board messages between spaces, §10 told homes to set `none`, and Example 4 sent a message out of a `none` space. Now: carry-out is information leaving a space with an assistant, wherever it lands, under one rule. `attributed`: it may leave, citing the space, at any destination. `none`: nothing leaves on the assistant's initiative; the space's owner may release one item at a time as a board message, which is the record. A home is the same case, its person being its owner. Example 4 and the templates follow.
+**Carry-out has no assumed destination.** It was defined as space → home, while §8 also used it to gate board messages between spaces, §10 told homes to set `none`, and Example 4 sent a message out of a `none` space. Now: carry-out is information leaving a space, wherever it lands, under one rule. `none` means nothing, with no owner exception: an owner who needs one item out changes the policy, and the policy's history is the record. Item-by-item gating happens at the receiving space, whose board is the only way in and whose person approves what enters.
 
 ## 0.5.0 (2026-09-20)
 
